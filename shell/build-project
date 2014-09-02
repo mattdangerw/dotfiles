@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "No git no dice"
+    exit 1
+fi
+repodir=$(git rev-parse --show-toplevel)
+reponame="$(basename $repodir)"
+if [ "$reponame" = "eos-knowledge-db-build" ]; then
+    python $repodir/setup.py develop --prefix=$HOME/install
+else
+    jhbuild make
+fi

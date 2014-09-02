@@ -195,9 +195,9 @@
 <!-- ALL -->
   <metamodule id="meta-eos-all">
     <dependencies>
-      <dep package="meta-eos-apps"/>
-      <dep package="meta-eos-core"/>
       <dep package="meta-eos-gnome"/>
+      <dep package="meta-eos-core"/>
+      <dep package="meta-eos-apps"/>
       <dep package="eos-meta"/>
       <dep package="eos-obs-build"/>
       <dep package="eos-shell-build"/>

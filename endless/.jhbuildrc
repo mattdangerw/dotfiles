@@ -10,10 +10,10 @@ moduleset = ['gnome-apps-3.12', os.path.expanduser('~/eos.modules')]
 modules = ['meta-eos-all']
 
 # what directory should the source be checked out to?
-checkoutroot = '/home/matt/checkout'
+checkoutroot = os.path.expanduser('~/checkout')
 
 # the prefix to configure/install modules to (must have write access)
-prefix = '/home/matt/install'
+prefix = os.path.expanduser('~/install')
 
 # are these necessary?
 module_autogenargs['gjs'] = '--enable-debug=yes --enable-gtk-doc'
@@ -27,8 +27,8 @@ module_autogenargs['clutter-gtk'] = '--enable-debug=yes --enable-gtk-doc'
 module_autogenargs['eos-sdk'] = '--enable-gtk-doc --enable-gir-doc --enable-strict-flags --enable-js-doc'
 module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --enable-js-doc'
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
-module_autogenargs['eos-knowledge-apps'] = '--enable-database=no-media'
-module_autogenargs['eos-encyclopedia-db'] = 'DB_SIZE=2 --enable-database'
+module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
+module_autogenargs['eos-encyclopedia-db'] = 'DB_SIZE=2 --enable-database=es'
 
 # custom CFLAGS / environment pieces for the build
 os.environ['CFLAGS'] = '-g -O0'

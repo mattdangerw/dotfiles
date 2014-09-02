@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "No git no dice"
+    exit 1
+fi
+repodir=$(git rev-parse --show-toplevel)
+reponame="$(basename $repodir)"
+if [ "$reponame" = "eos-knowledge-apps" ]; then
+    jhbuild run eos-dinosaurs-es
+elif [ "$reponame" = "eos-knowledge-lib" ]; then
+    jhbuild run eos-dinosaurs-es
+elif [ "$reponame" = "eos-resume" ]; then
+    jhbuild run gjs $repodir/resume-app.js
+elif [ "$reponame" = "eos-finance" ]; then
+    jhbuild run gjs $repodir/finance-app.js
+else
+    jhbuild run $reponame
+fi

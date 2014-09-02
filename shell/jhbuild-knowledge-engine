@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# kill-processes () {
+#   echo "here"
+#   kill -SIGINT $pidxapian
+#   kill -SIGINT $pidengine
+# }
+# trap 'kill-processes' EXIT
+# sudo systemctl stop xapian-bridge.service
+# sudo systemctl stop xapian-bridge.socket
+# jhbuild run xapian-bridge &
+# pidxapian=$!
+sudo systemctl stop eos-knowledge-engine.service
+sudo systemctl stop eos-knowledge-engine.socket
+jhbuild run node $HOME/checkout/eos-knowledge-engine/server.js
+# pidengine=$!
+# wait

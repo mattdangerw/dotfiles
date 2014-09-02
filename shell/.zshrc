@@ -33,7 +33,7 @@ DISABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(github)
 
-export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$ZSH_SCRIPT_DIR
 
 source $ZSH/oh-my-zsh.sh
 
@@ -129,9 +129,6 @@ alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 alias draw-desktop="gsettings set org.gnome.desktop.background show-desktop-icons"
 alias caps-is-control="gsettings set org.gnome.desktop.input-sources xkb-options \"['ctrl:nocaps']\""
 
-# sublime projects
-alias update-sublime-projects="python ${ZSH_SCRIPT_DIR}/update_projects.py"
-
 function burn-image() {
     sudo true # grab sudo rights first or its hard to see under the curl output
     curl $1 | tee ~/images/$(basename $1) | gunzip -c | sudo dd of=/dev/mmcblk0 bs=8M conv=sparse oflag=sync
@@ -147,25 +144,8 @@ function deb-build() {
     dpkg -b $1 $2
 }
 
-# run command for different directories
-function r() {
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        say "No git no dice"
-        return
-    fi
-    local repodir=$(git rev-parse --show-toplevel)
-    local reponame="$(basename $repodir)"
-    if [ "$reponame" = "eos-knowledge-apps" ]; then
-        jhbuild run eos-thrones
-    elif [ "$reponame" = "eos-knowledge-lib" ]; then
-        jhbuild run gjs $repodir/tests/smoke-tests/homePageBSmokeTest.js
-    elif [ "$reponame" = "eos-resume" ]; then
-        jhbuild run gjs $repodir/resume-app.js
-    else
-        jhbuild run $reponame
-    fi
-}
-alias m='jhbuild make'
+alias m='build-project'
+alias r='run-project'
 alias mr='m && r'
 
 # pipe to grep
@@ -180,24 +160,6 @@ alias clip="xclip -sel clip"
 function chpwd() {
     emulate -LR zsh
     ls
-}
-
-function remote-debug()
-{
-    gnome_session=$(command pgrep -u $USER gnome-session)
-    eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | command grep DISPLAY)
-    eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | command grep XAUTHORITY)
-    eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | command grep DBUS_SESSION_BUS_ADDRESS)
-}
-
-function jhbuild-knowledge-engine()
-{
-    sudo systemctl stop xapian-bridge.service
-    sudo systemctl stop xapian-bridge.socket
-    jhbuild run xapian-bridge &
-    sudo systemctl stop eos-knowledge-engine.service
-    sudo systemctl stop eos-knowledge-engine.socket
-    jhbuild run node $HOME/checkout/eos-knowledge-engine/server.js
 }
 
 # quick clone
