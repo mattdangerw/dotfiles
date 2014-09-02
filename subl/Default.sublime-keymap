@@ -35,6 +35,7 @@
       { "key": "num_selections", "operator": "not_equal", "operand": 1 }
     ]
   },
-  { "keys": ["shift+f5"], "command": "build", "args": {"variant": "Run"} },
+  { "keys": ["f7"], "command": "build" },
+  { "keys": ["f5"], "command": "build", "args": {"variant": "Run"} },
   { "keys": ["ctrl+k", "ctrl+p"], "command": "show_overlay", "args": {"overlay": "command_palette"} }
 ]

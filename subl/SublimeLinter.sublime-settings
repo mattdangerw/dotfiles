@@ -1,0 +1,9 @@
+{
+  "user": {
+    "linters": {
+      "csslint": {
+        "ignore": ["zero-units", "overqualified-elements", "ids", "universal-selector", "adjoining-classes", "known-properties", "fallback-colors"]
+      }
+    }
+  }
+}

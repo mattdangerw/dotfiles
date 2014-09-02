@@ -6,6 +6,7 @@ ln -sT ${SCRIPT_DIR}/git/.gitignore ~/.gitignore
 ln -sT ${SCRIPT_DIR}/git/.git_template ~/.git_template
 ln -sT ${SCRIPT_DIR}/endless/.jhbuildrc ~/.jhbuildrc
 ln -sT ${SCRIPT_DIR}/endless/eos.modules ~/eos.modules
+ln -sT ${SCRIPT_DIR}/shell/.jshintrc ~/.jshintrc
 ln -sT ${SCRIPT_DIR}/shell/.zshrc ~/.zshrc
 ln -sT ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
 ln -sT ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User

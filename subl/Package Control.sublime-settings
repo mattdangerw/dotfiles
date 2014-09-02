@@ -4,6 +4,9 @@
 	[
 		"GitGutter",
 		"Package Control",
+		"SublimeLinter",
+		"SublimeLinter-csslint",
+		"SublimeLinter-jshint",
 		"Theme - Flatland",
 		"Wrap Plus"
 	]

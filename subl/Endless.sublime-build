@@ -1,0 +1,10 @@
+{
+  "shell_cmd": "zsh -c \"source /home/matt/.zshrc; build-project\"",
+  "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+  "variants": [
+    {
+      "name": "Run",
+      "shell_cmd": "zsh -c \"source /home/matt/.zshrc; run-project\"",
+    }
+  ]
+}

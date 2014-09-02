@@ -31,7 +31,7 @@ DISABLE_CORRECTION="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(github)
+plugins=(github gitfast)
 
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$ZSH_SCRIPT_DIR
 
@@ -77,7 +77,12 @@ function say() {
     fi
 }
 
-alias fortune='wget -O - -q http://www.iheartquotes.com/api/v1/random\?max_characters=300 | sed "s/&quot;/\"/g" | sed -e "s!http[s]\?://\S*!!g"'
+function fortune() {
+    local phrase
+    phrase=`wget -T 2 -O - -q http://www.iheartquotes.com/api/v1/random\?max_characters=300 || echo "fart"`
+    echo ${phrase} | sed "s/&quot;/\"/g" | sed -e "s!http[s]\?://\S*!!g"
+}
+
 alias quote='say `fortune`'
 alias bored='while :; do quote && sleep 4; done'
 alias lol='say lol'
@@ -99,6 +104,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 alias size='command du -sh'
+alias count='wc -l'
 
 alias shutdown='quote && sudo shutdown -h now'
 alias reboot='sudo shutdown -r now'
@@ -128,6 +134,16 @@ alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 # gsettings
 alias draw-desktop="gsettings set org.gnome.desktop.background show-desktop-icons"
 alias caps-is-control="gsettings set org.gnome.desktop.input-sources xkb-options \"['ctrl:nocaps']\""
+
+function bundle-install() {
+    for bundle in "$@"; do
+        local id=$bundle
+        id=${id%_*}
+        id=${id%_*}
+        sudo -u app-manager $HOME/checkout/eos-app-manager/tools/bundler-tool.sh uninstall $id
+        sudo -u app-manager $HOME/checkout/eos-app-manager/tools/bundler-tool.sh install $id $bundle
+    done
+}
 
 function burn-image() {
     sudo true # grab sudo rights first or its hard to see under the curl output
@@ -222,6 +238,7 @@ function unalias_git_mode()
     unalias rm
 }
 # toggle git mode or run a single command with git
+unalias g
 function g()
 {
     if [ "$#" -eq 0 ]; then

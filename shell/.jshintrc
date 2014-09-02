@@ -1,0 +1,28 @@
+{
+  "esnext": true,
+  "evil": false,
+  "indent": 4,
+  "moz": true,
+  "multistr": true,
+  "sub": true,
+  "trailing": true,
+  "undef": true,
+  "predef": [
+    "imports",
+    "print",
+    "printerr",
+    "window",
+    "ARGV",
+    "jasmine",
+    "describe",
+    "xdescribe",
+    "it",
+    "xit",
+    "expect",
+    "beforeEach",
+    "afterEach",
+    "setTimeout",
+    "setInterval",
+    "spyOn"
+  ]
+}
