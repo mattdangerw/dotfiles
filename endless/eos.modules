@@ -12,8 +12,10 @@
     <dependencies>
       <dep package="eos-app-manager"/>
       <dep package="eos-app-store"/>
+      <dep package="eos-event-recorder-daemon"/>
       <dep package="eos-file-manager"/>
       <dep package="eos-metrics"/>
+      <dep package="eos-metrics-instrumentation"/>
       <dep package="eos-sdk"/>
       <dep package="eos-shell"/>
       <dep package="eos-shell-content"/>
@@ -31,11 +33,19 @@
     <branch revision="master"/>
   </autotools>
 
+  <autotools id="eos-event-recorder-daemon">
+    <branch revision="master"/>
+  </autotools>
+
   <autotools id="eos-file-manager">
     <branch revision="master"/>
   </autotools>
 
   <autotools id="eos-metrics">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="eos-metrics-instrumentation">
     <branch revision="master"/>
   </autotools>
 
@@ -76,6 +86,7 @@
       <dep package="eos-knowledge-engine"/>
       <dep package="eos-knowledge-lib"/>
       <dep package="eos-node-modules"/>
+      <dep package="eos-pantheon-tools"/>
       <dep package="eos-photos"/>
       <dep package="eos-programming"/>
       <dep package="eos-resume"/>
@@ -85,6 +96,10 @@
       <dep package="eos-virtual-school"/>
       <dep package="eos-weather"/>
       <dep package="eos-youvideos"/>
+      <dep package="gnome-user-docs"/>
+      <dep package="gnome-getting-started-docs"/>
+      <dep package="yelp"/>
+      <dep package="yelp-xsl"/>
       <dep package="xapian-bridge"/>
     </dependencies>
   </metamodule>
@@ -125,6 +140,10 @@
     <branch revision="master"/>
   </autotools>
 
+  <autotools id="eos-pantheon-tools" skip-autogen="true" makeargs="-v" skip-install="true">
+    <branch revision="master"/>
+  </autotools>
+
   <autotools id="eos-photos">
     <branch revision="master"/>
   </autotools>
@@ -154,6 +173,22 @@
   </autotools>
 
   <autotools id="eos-youvideos">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="gnome-getting-started-docs">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="gnome-user-docs">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="yelp">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="yelp-xsl">
     <branch revision="master"/>
   </autotools>
 
