@@ -23,6 +23,11 @@
     "afterEach",
     "setTimeout",
     "setInterval",
-    "spyOn"
+    "spyOn",
+    "require",
+    "console",
+    "process",
+    "_",
+    "module"
   ]
 }
