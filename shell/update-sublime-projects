@@ -24,11 +24,14 @@ for dirname in os.listdir(checkout_dir):
             ]
         }
         project_file = open(project_file_path, 'w')
-        project_file.write(json.dumps(project_obj, indent=2, separators=(',', ': ')))
+        project_file.write(json.dumps(project_obj, indent=4, separators=(',', ': ')))
         project_file.close()
     if not os.path.exists(workspace_file_path):
+        workspace_obj = {
+            'build_system': 'Packages/User/Endless.sublime-build'
+        }
         workspace_file = open(workspace_file_path, 'w')
-        workspace_file.write('{}')
+        workspace_file.write(json.dumps(workspace_obj, indent=4, separators=(',', ': ')))
         workspace_file.close()
     workspace_file_paths.append(workspace_file_path)
 
