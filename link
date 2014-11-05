@@ -1,12 +1,25 @@
-#!/bin/bash
+#!/bin/bash -e
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 
-ln -sT ${SCRIPT_DIR}/git/.gitconfig ~/.gitconfig
-ln -sT ${SCRIPT_DIR}/git/.gitignore ~/.gitignore
-ln -sT ${SCRIPT_DIR}/git/.git_template ~/.git_template
-ln -sT ${SCRIPT_DIR}/endless/.jhbuildrc ~/.jhbuildrc
-ln -sT ${SCRIPT_DIR}/endless/eos.modules ~/eos.modules
-ln -sT ${SCRIPT_DIR}/shell/.jshintrc ~/.jshintrc
-ln -sT ${SCRIPT_DIR}/shell/.zshrc ~/.zshrc
-ln -sT ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
-ln -sT ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
+function backup_and_link() {
+    if [ -e $2 ]; then
+        backup=${2}.old
+        if [ -e $backup ]; then
+            echo "$2 and $backup exist, clean up your shit"
+            exit 1
+        fi
+        echo "Moving existing $2 to ${2}.old"
+        mv $2 $backup
+    fi
+    ln -sT $1 $2
+}
+
+backup_and_link ${SCRIPT_DIR}/git/.gitconfig ~/.gitconfig
+backup_and_link ${SCRIPT_DIR}/git/.gitignore ~/.gitignore
+backup_and_link ${SCRIPT_DIR}/git/.git_template ~/.git_template
+backup_and_link ${SCRIPT_DIR}/endless/.jhbuildrc ~/.jhbuildrc
+backup_and_link ${SCRIPT_DIR}/endless/eos.modules ~/eos.modules
+backup_and_link ${SCRIPT_DIR}/shell/.jshintrc ~/.jshintrc
+backup_and_link ${SCRIPT_DIR}/shell/.zshrc ~/.zshrc
+backup_and_link ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
+backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
