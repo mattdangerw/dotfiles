@@ -33,7 +33,7 @@ DISABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(github gitfast)
 
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$ZSH_SCRIPT_DIR
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/heroku/bin:$HOME/.bin:$ZSH_SCRIPT_DIR
 
 source $ZSH/oh-my-zsh.sh
 
@@ -51,6 +51,7 @@ alias chrome='google-chrome'
 alias files='xdg-open .'
 alias term='gnome-terminal'
 alias gdb='gdb -q -ex r'
+alias tree='tree -C'
 
 # some more ls aliases
 alias l='ls'
@@ -113,42 +114,11 @@ alias logout='gnome-session-quit'
 alias zedit='subl ~/.zshrc'
 alias zup='source ~/.zshrc'
 
-# cd commands for the stuff i'm currently working on
-alias sdk='cd ~/checkout/eos-sdk'
-alias prog='cd ~/checkout/eos-programming'
-alias know='cd ~/checkout/eos-knowledge-lib'
-alias build='cd ~/checkout/eos-obs-build'
-alias photo='cd ~/checkout/eos-photos'
-alias gtk='cd ~/checkout/gtk'
-alias theme='cd ~/checkout/eos-theme'
-alias shell='cd ~/checkout/eos-shell'
-
-# ssh connections
-alias jenkins='ssh ci -L 8080:localhost:8080'
-alias elastic='ssh elastic@10.0.1.16 -L 9200:localhost:9200'
-alias markin='ssh endlesss@endless.kollective.it -L 9200:localhost:9200'
-
 # debian
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
 # gsettings
-alias draw-desktop="gsettings set org.gnome.desktop.background show-desktop-icons"
 alias caps-is-control="gsettings set org.gnome.desktop.input-sources xkb-options \"['ctrl:nocaps']\""
-
-function bundle-install() {
-    for bundle in "$@"; do
-        local id=$bundle
-        id=${id%_*}
-        id=${id%_*}
-        sudo -u app-manager $HOME/checkout/eos-app-manager/tools/bundler-tool.sh uninstall $id
-        sudo -u app-manager $HOME/checkout/eos-app-manager/tools/bundler-tool.sh install $id $bundle
-    done
-}
-
-function burn-image() {
-    sudo true # grab sudo rights first or its hard to see under the curl output
-    curl $1 | tee ~/images/$(basename $1) | gunzip -c | sudo dd of=/dev/mmcblk0 bs=8M conv=sparse oflag=sync
-}
 
 function deb-extract() {
     mkdir -p $2
@@ -283,4 +253,3 @@ compdef _h h
 # intergrate with hub
 # autocomplete for huboard github commands
 # cd commands for every eos repo
-# version control!

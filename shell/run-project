@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo "No git no dice"
@@ -14,6 +14,12 @@ elif [ "$reponame" = "eos-resume" ]; then
     jhbuild run gjs $repodir/resume-app.js
 elif [ "$reponame" = "eos-finance" ]; then
     jhbuild run gjs $repodir/finance-app.js
+elif [ "$reponame" = "yelp-xsl" ]; then
+    jhbuild run yelp
+elif [ "$reponame" = "gnome-user-docs" ]; then
+    jhbuild run yelp
+elif [ "$reponame" = "gnome-getting-started-docs" ]; then
+    jhbuild run yelp
 else
     jhbuild run $reponame
 fi
