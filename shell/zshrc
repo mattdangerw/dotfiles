@@ -33,8 +33,6 @@ DISABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(github gitfast)
 
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/heroku/bin:$HOME/.bin:$ZSH_SCRIPT_DIR
-
 source $ZSH/oh-my-zsh.sh
 
 # for gnome jhbuild

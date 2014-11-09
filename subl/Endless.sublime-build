@@ -1,11 +1,11 @@
 {
-  "shell_cmd": "zsh -c \"source \\$HOME/.zshrc; build-project\"",
+  "shell_cmd": "build-project",
   "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
   "working_dir": "${project_path}/../checkout/${project_base_name}",
   "variants": [
     {
       "name": "Run",
-      "shell_cmd": "zsh -c \"source \\$HOME/.zshrc; build-project && run-project\"",
+      "shell_cmd": "build-project && run-project",
     }
   ]
 }

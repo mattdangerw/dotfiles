@@ -25,5 +25,6 @@ backup_and_link ${SCRIPT_DIR}/git/gitconfig ~/.gitconfig
 backup_and_link ${SCRIPT_DIR}/git/gitignore ~/.gitignore
 backup_and_link ${SCRIPT_DIR}/shell/jshintrc ~/.jshintrc
 backup_and_link ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
+backup_and_link ${SCRIPT_DIR}/shell/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/shell/zshrc ~/.zshrc
 backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
