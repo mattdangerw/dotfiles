@@ -1,2 +1,5 @@
 *.cache
-*.last-run
+Package Control.last-run
+Package Control.ca-bundle
+Package Control.ca-list
+
