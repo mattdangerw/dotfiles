@@ -1,6 +1,10 @@
 {
-	"extensions":
-	[
-		".zshrc"
-	]
+  "extensions":
+  [
+    "zsh-theme",
+    ".bashrc",
+    ".zshrc",
+    "zshrc",
+    "profile"
+  ]
 }

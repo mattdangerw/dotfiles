@@ -1,7 +1,8 @@
 {
-	"extensions":
-	[
-		".jhbuildrc"
-	],
-	"tab_size": 4
+  "extensions":
+  [
+    ".jhbuildrc",
+    "jhbuildrc"
+  ],
+  "tab_size": 4
 }
