@@ -200,7 +200,8 @@
   <metamodule id="meta-eos-gnome">
     <dependencies>
       <dep package="gjs"/>
-      <dep package="glib"/>
+      <!-- FIXME: glib bindings aren't working right now -->
+      <!-- <dep package="glib"/> -->
       <dep package="gtk"/>
       <dep package="libsoup"/>
       <dep package="xapian-glib"/>

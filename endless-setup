@@ -1,0 +1,87 @@
+#!/bin/bash -ex
+# Setup script to install everything needed, run jhbuild and get up and running
+
+SCRIPT_DIR=$(dirname $(readlink -f $0))
+
+# Grab sudo rights
+sudo true
+
+# Allows apt-get installing w/o the authentication warning every time
+sudo bash -c "echo 'APT::Get::AllowUnauthenticated \"true\";' > /etc/apt/apt.conf.d/00allowunauthenticated"
+
+sudo apt-get update
+# get the basic dependencies
+sudo apt-get install -y --force-yes eos-dev python-pip python3-pip npm \
+    gnome-common yelp-tools autotools-dev gnome-system-monitor devhelp \
+    dkms linux-headers-generic openssh-server
+
+# debian install stuff we dont have on obs
+sudo dpkg -i $SCRIPT_DIR/debians/*
+sudo apt-get install -f
+
+# pip install shit we don't have in debians
+sudo pip-3.3 install pep8
+sudo pip install transifex-client
+
+# npm install shit we don't have in debians
+sudo npm install -g jshint
+sudo npm install -g csslint
+
+# build deps for most everything else
+sudo apt-get build-dep -y --force-yes eos-shell-content eos-shell eos-sdk \
+    eos-app-store eos-social eos-file-manager eos-theme eos-english \
+    eos-programming gtk+3.0 libsoup2.4 eos-metrics xapian-glib \
+    eos-knowledge-db-build eos-photos eos-knowledge-engine eos-knowledge-lib \
+    yelp eos-metrics-instrumentation
+
+# oh-my-zsh
+if [ ! -e $HOME/.oh-my-zsh ]; then
+    git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+fi
+
+# generate subl conf files
+subl -b
+sleep 1
+kill $(pgrep subl)
+
+$SCRIPT_DIR/link
+
+# add sublime package manager
+if [ ! -e $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package ]; then
+    pushd $HOME/.config/sublime-text-3/Installed\ Packages
+        wget https://sublime.wbond.net/Package%20Control.sublime-package
+    popd
+fi
+
+# install jhbuild
+if [ ! -e $HOME/checkout/jhbuild ]; then
+   git clone git://git.gnome.org/jhbuild $HOME/checkout/jhbuild
+fi
+pushd $HOME/checkout/jhbuild
+    ./autogen.sh
+    make
+    make install
+popd
+
+# get our PATH correctly set up
+. $HOME/.profile
+
+read -r -p "Do you want to jhbuild everything? This will take an hour or so [y/N] " response
+case $response in
+    [yY][eE][sS]|[yY])
+        jhbuild --no-interact build || true
+        ;;
+    *)
+        echo "Skipping jhbuild build..."
+        ;;
+esac
+
+# make a sublime project for everything in ~/checkout
+update-sublime-projects
+
+zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
+some time to install you packages. When you are ready, press enter to switch to
+zsh (needs password) and reboot.'"
+read
+bash -c "chsh -s $(which zsh)"
+sudo reboot
