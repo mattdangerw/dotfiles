@@ -35,11 +35,6 @@ plugins=(github gitfast)
 
 source $ZSH/oh-my-zsh.sh
 
-# for gnome jhbuild
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$PATH:$HOME/.local/bin"
-fi
-
 #git uses sublime
 export EDITOR="subl -w"
 
