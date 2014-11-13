@@ -45,7 +45,7 @@ session_obj = {
         'recent_workspaces': {}
     }
 }
-if os.path.isdir(session_path):
+if os.path.isfile(session_path):
     session_file = open(session_path, 'r')
     session_obj = json.loads(open(session_path).read(), strict=False)
     session_file.close()
