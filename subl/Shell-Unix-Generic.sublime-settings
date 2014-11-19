@@ -3,8 +3,10 @@
   [
     "zsh-theme",
     ".bashrc",
+    "bashrc",
     ".zshrc",
     "zshrc",
+    ".profile",
     "profile"
   ]
 }
