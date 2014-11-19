@@ -3,6 +3,16 @@
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 
+BUILD_MODULES=false
+OPTIND=1
+while getopts "b" opt; do
+    case "$opt" in
+    b)
+        BUILD_MODULES=true
+        ;;
+    esac
+done
+
 # Grab sudo rights
 sudo true
 
@@ -66,15 +76,9 @@ popd
 # get our PATH correctly set up
 . $HOME/.profile
 
-read -r -p "Do you want to jhbuild everything? This will take an hour or so [y/N] " response
-case $response in
-    [yY][eE][sS]|[yY])
-        jhbuild --no-interact build || true
-        ;;
-    *)
-        echo "Skipping jhbuild build..."
-        ;;
-esac
+if $BUILD_MODULES; then
+    jhbuild --no-interact build || true
+fi
 
 # make a sublime project for everything in ~/checkout
 update-sublime-projects
