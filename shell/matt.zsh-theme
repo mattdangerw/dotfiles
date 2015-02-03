@@ -7,10 +7,13 @@ prompt_matt_precmd () {
   if [[ -n $UNDER_JHBUILD ]]; then
     local jhbuild_token='%{$fg[cyan]%} ‹jh›%{$reset_color%}'
   fi
-  if [[ -n $GIT_MODE ]]; then
-    local git_mode_token='%{$fg[magenta]%} ‹gm›%{$reset_color%}'
+  if [[ -n $ZIP_MODE ]]; then
+    local zip_mode_token='%{$fg[magenta]%} ‹zm›%{$reset_color%}'
   fi
-  PROMPT="╭─${user_host}${current_dir}${jhbuild_token}${git_branch}${git_mode_token}
+  if [[ -n $GIT_MODE ]]; then
+    local git_mode_token='%{$fg[red]%} ‹gm›%{$reset_color%}'
+  fi
+  PROMPT="╭─${user_host}${current_dir}${jhbuild_token}${zip_mode_token}${git_mode_token}${git_branch}
 ╰─%B$%b "
 }
 

@@ -194,8 +194,8 @@ function alias_git_mode()
 }
 function unalias_git_mode()
 {
-    for word in $_git_mode_commands
-        do unalias "$word"
+    for word in $_git_mode_commands; do
+        unalias "$word"
     done
     unalias mv
     unalias rm
@@ -222,27 +222,67 @@ fi
 
 function j()
 {
-    if [[ -z $UNDER_JHBUILD ]]; then
-        jhbuild shell
+    if [ "$#" -eq 0 ]; then
+        if [[ -z $UNDER_JHBUILD ]]; then
+            command jhbuild shell
+        else
+            exit
+        fi
     else
-        exit
+        command jhbuild run $@
     fi
 }
 
-# dir shortcuts
-c() { cd ~/checkout/$1; }
-_c() { _files -W ~/checkout -/; }
-compdef _c c
-
-i() { cd ~/install/$1; }
-_i() { _files -W ~/install -/; }
-compdef _i i
+# Quick navigate commands
+function alias_zip_mode()
+{
+    typeset -gx -A _zip_mode_commands
+    for dir in $HOME/checkout/* ; do
+        shortcut=$(basename $dir)
+        shortcut=${shortcut#gnome-}
+        shortcut=${shortcut#eos-knowledge-}
+        shortcut=${shortcut#eos-}
+        _zip_mode_commands[$shortcut]=$dir
+        alias "$shortcut"="cd $dir"
+    done
+}
+function unalias_zip_mode()
+{
+    for shorcut in ${(@k)_zip_mode_commands}; do
+        unalias "$shorcut"
+    done
+}
+function z()
+{
+    if [ "$#" -eq 0 ]; then
+        if [ $ZIP_MODE ]; then
+            unset ZIP_MODE
+            unalias_zip_mode
+        else
+            export ZIP_MODE=true
+            alias_zip_mode
+        fi
+    else
+        cd ${_zip_mode_commands[$1]}
+    fi
+}
+if [ $ZIP_MODE ]; then
+    alias_zip_mode
+fi
 
 h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
 compdef _h h
 
+alias c="command"
+
+if [ -z $FIRST_INCLUDE ]; then
+    export FIRST_INCLUDE=true
+    g
+    # z
+    j
+fi
+
 # TODO
 # intergrate with hub
 # autocomplete for huboard github commands
-# cd commands for every eos repo
