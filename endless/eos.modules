@@ -5,7 +5,8 @@
 <moduleset>
 
 <!-- repos -->
-  <repository type="git" name="github.com" href="git@github.com:endlessm" default="yes"/>
+  <repository type="git" name="github" href="git@github.com:endlessm" default="yes"/>
+  <repository type="git" name="gnome" href="git://git.gnome.org"/>
 
 <!-- CORE -->
   <metamodule id="meta-eos-core">
@@ -21,7 +22,12 @@
       <dep package="eos-shell-content"/>
       <dep package="eos-social"/>
       <dep package="eos-theme"/>
+      <dep package="gnome-getting-started-docs"/>
+      <dep package="gnome-user-docs"/>
       <dep package="pstack"/>
+      <dep package="yelp"/>
+      <dep package="yelp-tools"/>
+      <dep package="yelp-xsl"/>
     </dependencies>
   </metamodule>
 
@@ -69,10 +75,31 @@
     <branch revision="master"/>
   </autotools>
 
+  <autotools id="gnome-getting-started-docs">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="gnome-user-docs">
+    <branch revision="master"/>
+  </autotools>
+
   <!-- soon we should be able to take this out -->
   <autotools id="pstack">
     <branch revision="master"/>
   </autotools>
+
+  <autotools id="yelp">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="yelp-tools">
+    <branch repo="gnome" module="yelp-tools.git" revision="master"/>
+  </autotools>
+
+  <autotools id="yelp-xsl">
+    <branch revision="master"/>
+  </autotools>
+
 
 <!-- APPS -->
   <metamodule id="meta-eos-apps">
@@ -80,6 +107,7 @@
       <dep package="eos-encyclopedia"/>
       <dep package="eos-encyclopedia-db"/>
       <dep package="eos-english"/>
+      <dep package="eos-exploration-center"/>
       <dep package="eos-finance"/>
       <dep package="eos-knowledge-apps"/>
       <dep package="eos-knowledge-db-build"/>
@@ -96,10 +124,6 @@
       <dep package="eos-virtual-school"/>
       <dep package="eos-weather"/>
       <dep package="eos-youvideos"/>
-      <dep package="gnome-user-docs"/>
-      <dep package="gnome-getting-started-docs"/>
-      <dep package="yelp"/>
-      <dep package="yelp-xsl"/>
       <dep package="xapian-bridge"/>
     </dependencies>
   </metamodule>
@@ -109,6 +133,10 @@
   </autotools>
 
   <autotools id="eos-encyclopedia-db">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="eos-exploration-center" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
@@ -173,22 +201,6 @@
   </autotools>
 
   <autotools id="eos-youvideos">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="gnome-getting-started-docs">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="gnome-user-docs">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="yelp">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="yelp-xsl">
     <branch revision="master"/>
   </autotools>
 
