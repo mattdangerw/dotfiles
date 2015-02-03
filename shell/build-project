@@ -10,6 +10,10 @@ reponame="$(basename $repodir)"
 pushd $repodir > /dev/null
 if [ "$reponame" = "eos-knowledge-db-build" ]; then
     jhbuild run python setup.py develop --prefix=$HOME/install
+elif [ "$reponame" = "eos-knowledge-engine" ]; then
+    npm install && npm run sass
+elif [ "$reponame" = "eos-pantheon-tools" ]; then
+    npm install
 else
     jhbuild make
 fi
