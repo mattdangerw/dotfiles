@@ -35,12 +35,15 @@ plugins=(github gitfast)
 
 source $ZSH/oh-my-zsh.sh
 
+# support 256 colors
+export TERM=xterm-256color
+
 #git uses sublime
 export EDITOR="subl -w"
 
 # resume downloads if dc'd
 alias wget='wget -c'
-alias chrome='google-chrome'
+alias google='google-chrome'
 alias files='xdg-open .'
 alias term='gnome-terminal'
 alias gdb='gdb -q -ex r'
@@ -106,6 +109,8 @@ alias logout='gnome-session-quit'
 
 alias zedit='subl ~/.zshrc'
 alias zup='source ~/.zshrc'
+
+alias which-package='dpkg-query -S'
 
 # debian
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"

@@ -27,7 +27,6 @@
     "require",
     "console",
     "process",
-    "_",
     "module"
   ]
 }
