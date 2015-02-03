@@ -30,8 +30,10 @@
   graph = log --graph --pretty=oneline --abbrev-commit --color --decorate
   publish = push --set-upstream origin HEAD
   pub = !git publish
+  bomb = clean -Xdf
   nuke = clean -xdf
   reup = !git fetch && git reset --hard @{upstream}
   patch = !git format-patch -o ~/checkout/snips
+  stage-deletes = !git rm $(git ls-files --deleted)
 [init]
 	templatedir = ~/.git_template
