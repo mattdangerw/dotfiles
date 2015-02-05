@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-gnome_session=$(pgrep -u $USER gnome-session)
-eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | grep DISPLAY)
-eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | grep XAUTHORITY)
-eval export $(sed 's/\o000/\n/g;' < /proc/$gnome_session/environ | grep DBUS_SESSION_BUS_ADDRESS)
+PID=$(pgrep -u $USER gnome-session)
+
+eval `strings /proc/$PID/environ | while read line; do
+   KEY="$(echo $line | sed -n 's/\([[:upper:]_]*\)=.*/\1/p')"
+   VALUE="$(echo $line | sed -n 's/[[:upper:]_]*=\([^"]*\)/\1/p')"
+   [ -z "$KEY" ] && continue;
+   [ -z "$VALUE" ] && continue;
+   echo "export $KEY='$VALUE'"
+done`
+
+zsh
