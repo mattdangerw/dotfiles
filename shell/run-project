@@ -15,9 +15,9 @@ elif [ "$reponame" = "eos-knowledge-lib" ]; then
 elif [ "$reponame" = "eos-encyclopedia" ]; then
     jhbuild run eos-encyclopedia com.endlessm.encyclopedia-es
 elif [ "$reponame" = "eos-knowledge-engine" ]; then
-    jhbuild-xapian
+    jhbuild-knowledge-engine
 elif [ "$reponame" = "xapian-bridge" ]; then
-    jhbuild-xapian
+    jhbuild-xapian-bridge
 elif [ "$reponame" = "eos-pantheon-tools" ]; then
     ./node_modules/sails/bin/sails.js console
 elif [ "$reponame" = "eos-resume" ]; then
