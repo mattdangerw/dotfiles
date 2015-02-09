@@ -241,14 +241,14 @@ function j()
 # Quick navigate commands
 function alias_zip_mode()
 {
-    for shorcut in ${(@k)_zip_mode_commands}; do
+    for shortcut in ${(@k)_zip_mode_commands}; do
         alias "$shortcut"="cd ${_zip_mode_commands[$shortcut]}"
     done
 }
 function unalias_zip_mode()
 {
-    for shorcut in ${(@k)_zip_mode_commands}; do
-        unalias "$shorcut"
+    for shortcut in ${(@k)_zip_mode_commands}; do
+        unalias "$shortcut"
     done
 }
 function z()
