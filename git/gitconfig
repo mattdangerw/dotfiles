@@ -27,6 +27,7 @@
   edit = commit --amend
   fix = commit --amend --no-edit
   wip = !bash -c 'git commit -m \"wip $1\"' -
+  split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
   graph = log --graph --pretty=oneline --abbrev-commit --color --decorate
   publish = push --set-upstream origin HEAD
   pub = !git publish
