@@ -39,9 +39,9 @@ sudo npm install -g csslint
 
 # build deps for most everything else
 sudo apt-get build-dep -y --force-yes eos-shell-content eos-shell eos-sdk \
-    eos-app-store eos-social eos-file-manager eos-theme eos-english \
-    eos-programming gtk+3.0 libsoup2.4 eos-metrics xapian-glib \
-    eos-knowledge-db-build eos-photos eos-knowledge-engine eos-knowledge-lib \
+    eos-app-store eos-social eos-file-manager eos-theme \
+    gtk+3.0 libsoup2.4 eos-metrics xapian-glib \
+    eos-knowledge-db-build eos-knowledge-engine eos-knowledge-lib \
     yelp eos-metrics-instrumentation
 
 # oh-my-zsh
