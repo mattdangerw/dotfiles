@@ -16,27 +16,19 @@ checkoutroot = os.path.expanduser('~/checkout')
 prefix = os.path.expanduser('~/install')
 
 # are these necessary?
-module_autogenargs['gjs'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['glib'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['gtk+'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['gdk-pixbuf'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['cogl'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['clutter'] = '--enable-debug=yes --enable-gtk-doc'
-module_autogenargs['clutter-gtk'] = '--enable-debug=yes --enable-gtk-doc'
-
 module_autogenargs['eos-sdk'] = '--enable-gtk-doc --enable-gir-doc --enable-strict-flags --enable-js-doc'
-module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --enable-js-doc'
+module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --enable-js-doc --enable-inspector'
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
-module_autogenargs['eos-knowledge-apps'] = '--enable-database=no --enable-proxy'
-module_autogenargs['eos-encyclopedia-db'] = '--enable-database=no NUM_ARTICLES=10 --enable-proxy'
+module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
+module_autogenargs['eos-encyclopedia-db'] = '--enable-database=en NUM_ARTICLES=100'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
 
 # custom CFLAGS / environment pieces for the build
-os.environ['CFLAGS'] = '-g -O0'
+os.environ['CFLAGS'] = '-g -Og -fdiagnostics-color=auto'
 
 # extra arguments to pass to all autogen.sh scripts
 # to speed up builds of GNOME, try '--disable-static --disable-gtk-doc'
-#autogenargs=''
+autogenargs = '--enable-debug=yes --enable-gtk-doc'
 
 # A string listing additional arguments to be passed to make.
 # Set makeargs to 'V=1' for verbose build output.
