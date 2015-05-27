@@ -137,7 +137,6 @@ alias mr='m && r'
 
 # pipe to grep
 alias -g '@'="| command grep"
-alias pgrep="ps -e | command grep"
 alias dgrep="dpkg -l | command grep"
 
 # add to clipboard
