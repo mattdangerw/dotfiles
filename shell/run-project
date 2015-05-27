@@ -9,11 +9,11 @@ reponame="$(basename $repodir)"
 
 pushd $repodir > /dev/null
 if [ "$reponame" = "eos-knowledge-apps" ]; then
-    jhbuild run eos-futbol-es
+    jhbuild run eos-travel-en
 elif [ "$reponame" = "eos-knowledge-lib" ]; then
-    jhbuild run eos-futbol-es
+    jhbuild run eos-travel-en
 elif [ "$reponame" = "eos-encyclopedia" ]; then
-    jhbuild run eos-encyclopedia com.endlessm.encyclopedia-es
+    jhbuild run eos-encyclopedia com.endlessm.encyclopedia-en
 elif [ "$reponame" = "eos-knowledge-engine" ]; then
     jhbuild-knowledge-engine
 elif [ "$reponame" = "xapian-bridge" ]; then
