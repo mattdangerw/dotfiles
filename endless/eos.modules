@@ -13,18 +13,17 @@
     <dependencies>
       <dep package="eos-app-manager"/>
       <dep package="eos-app-store"/>
+      <dep package="eos-desktop"/>
       <dep package="eos-event-recorder-daemon"/>
       <dep package="eos-file-manager"/>
       <dep package="eos-metrics"/>
       <dep package="eos-metrics-instrumentation"/>
       <dep package="eos-sdk"/>
-      <dep package="eos-shell"/>
       <dep package="eos-shell-content"/>
       <dep package="eos-social"/>
       <dep package="eos-theme"/>
       <dep package="gnome-getting-started-docs"/>
       <dep package="gnome-user-docs"/>
-      <dep package="pstack"/>
       <dep package="yelp"/>
       <dep package="yelp-tools"/>
       <dep package="yelp-xsl"/>
@@ -36,6 +35,11 @@
   </autotools>
 
   <autotools id="eos-app-store">
+    <branch revision="master"/>
+  </autotools>
+
+  <!-- FIXME: desktop doesn't work inside of jhbuild -->
+  <autotools id="eos-desktop" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
@@ -59,10 +63,6 @@
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="eos-shell">
-    <branch revision="master"/>
-  </autotools>
-
   <autotools id="eos-shell-content">
     <branch revision="master"/>
   </autotools>
@@ -83,11 +83,6 @@
     <branch revision="master"/>
   </autotools>
 
-  <!-- soon we should be able to take this out -->
-  <autotools id="pstack">
-    <branch revision="master"/>
-  </autotools>
-
   <autotools id="yelp">
     <branch revision="master"/>
   </autotools>
@@ -104,7 +99,6 @@
 <!-- APPS -->
   <metamodule id="meta-eos-apps">
     <dependencies>
-      <dep package="eos-encyclopedia"/>
       <dep package="eos-encyclopedia-db"/>
       <dep package="eos-english"/>
       <dep package="eos-exploration-center"/>
@@ -119,6 +113,7 @@
       <dep package="eos-programming"/>
       <dep package="eos-resume"/>
       <dep package="eos-sdk"/>
+      <dep package="eos-shard"/>
       <dep package="eos-translation"/>
       <dep package="eos-typing"/>
       <dep package="eos-virtual-school"/>
@@ -127,10 +122,6 @@
       <dep package="xapian-bridge"/>
     </dependencies>
   </metamodule>
-
-  <autotools id="eos-encyclopedia">
-    <branch revision="master"/>
-  </autotools>
 
   <autotools id="eos-encyclopedia-db">
     <branch revision="master"/>
@@ -184,6 +175,10 @@
     <branch revision="master"/>
   </autotools>
 
+  <autotools id="eos-shard">
+    <branch revision="master"/>
+  </autotools>
+
   <autotools id="eos-translation" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
@@ -212,10 +207,10 @@
   <metamodule id="meta-eos-gnome">
     <dependencies>
       <dep package="gjs"/>
-      <!-- FIXME: glib bindings aren't working right now -->
-      <!-- <dep package="glib"/> -->
+      <dep package="glib"/>
       <dep package="gtk"/>
       <dep package="libsoup"/>
+      <dep package="mutter"/>
       <dep package="xapian-glib"/>
     </dependencies>
   </metamodule>
@@ -224,7 +219,8 @@
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="glib">
+  <!-- FIXME: glib bindings aren't working right now -->
+  <autotools id="glib" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
@@ -233,6 +229,10 @@
   </autotools>
 
   <autotools id="libsoup">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="mutter">
     <branch revision="master"/>
   </autotools>
 
@@ -246,21 +246,21 @@
       <dep package="meta-eos-gnome"/>
       <dep package="meta-eos-core"/>
       <dep package="meta-eos-apps"/>
+      <dep package="eos-dev-config"/>
       <dep package="eos-meta"/>
-      <dep package="eos-obs-build"/>
-      <dep package="eos-shell-build"/>
+      <dep package="eos-build"/>
     </dependencies>
   </metamodule>
+
+  <autotools id="eos-dev-config" skip-autogen="true" makeargs="-v" skip-install="true">
+    <branch revision="master"/>
+  </autotools>
 
   <autotools id="eos-meta" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="eos-obs-build" skip-autogen="true" makeargs="-v" skip-install="true">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="eos-shell-build" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="eos-build" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
