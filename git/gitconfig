@@ -15,9 +15,9 @@
 	default = simple
 [alias]
   s = status
-  d = diff
-  dm = diff master
-  du = !git fetch && git diff @{upstream}
+  d = diff -M
+  dm = diff -M master
+  du = !git fetch && git diff -M @{upstream}
   br = branch
   re = rebase
   ri = rebase -i
@@ -36,5 +36,6 @@
   reup = !git fetch && git reset --hard @{upstream}
   patch = !git format-patch -o ~/checkout/snips
   stage-deletes = !git rm $(git ls-files --deleted)
+  stage-all = !git rm $(git ls-files --deleted) && git add .
 [init]
 	templatedir = ~/.git_template

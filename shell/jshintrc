@@ -12,6 +12,7 @@
     "imports",
     "print",
     "printerr",
+    "logError",
     "window",
     "ARGV",
     "jasmine",

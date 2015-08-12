@@ -20,10 +20,6 @@ elif [ "$reponame" = "xapian-bridge" ]; then
     jhbuild-xapian-bridge
 elif [ "$reponame" = "eos-pantheon-tools" ]; then
     ./node_modules/sails/bin/sails.js console
-elif [ "$reponame" = "eos-resume" ]; then
-    jhbuild run gjs $repodir/resume-app.js
-elif [ "$reponame" = "eos-finance" ]; then
-    jhbuild run gjs $repodir/finance-app.js
 elif [ "$reponame" = "yelp-xsl" ]; then
     jhbuild run yelp
 elif [ "$reponame" = "gnome-user-docs" ]; then
@@ -31,6 +27,6 @@ elif [ "$reponame" = "gnome-user-docs" ]; then
 elif [ "$reponame" = "gnome-getting-started-docs" ]; then
     jhbuild run yelp
 else
-    jhbuild run $reponame
+    jhbuild run $reponame $@
 fi
 popd
