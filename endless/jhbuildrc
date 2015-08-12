@@ -20,7 +20,6 @@ module_autogenargs['eos-sdk'] = '--enable-gtk-doc --enable-gir-doc --enable-stri
 module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --enable-js-doc --enable-inspector'
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
 module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
-module_autogenargs['eos-encyclopedia-db'] = '--enable-database=en NUM_ARTICLES=100'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
 
 # custom CFLAGS / environment pieces for the build

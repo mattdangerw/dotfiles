@@ -99,7 +99,6 @@
 <!-- APPS -->
   <metamodule id="meta-eos-apps">
     <dependencies>
-      <dep package="eos-encyclopedia-db"/>
       <dep package="eos-english"/>
       <dep package="eos-exploration-center"/>
       <dep package="eos-finance"/>
@@ -122,10 +121,6 @@
       <dep package="xapian-bridge"/>
     </dependencies>
   </metamodule>
-
-  <autotools id="eos-encyclopedia-db">
-    <branch revision="master"/>
-  </autotools>
 
   <autotools id="eos-exploration-center" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
