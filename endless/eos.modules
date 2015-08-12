@@ -105,7 +105,6 @@
       <dep package="eos-finance"/>
       <dep package="eos-knowledge-apps"/>
       <dep package="eos-knowledge-db-build"/>
-      <dep package="eos-knowledge-engine"/>
       <dep package="eos-knowledge-lib"/>
       <dep package="eos-node-modules"/>
       <dep package="eos-pantheon-tools"/>
@@ -115,6 +114,7 @@
       <dep package="eos-sdk"/>
       <dep package="eos-shard"/>
       <dep package="eos-translation"/>
+      <dep package="eos-tutorial"/>
       <dep package="eos-typing"/>
       <dep package="eos-virtual-school"/>
       <dep package="eos-weather"/>
@@ -135,7 +135,7 @@
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="eos-finance" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="eos-finance">
     <branch revision="master"/>
   </autotools>
 
@@ -148,10 +148,6 @@
   </autotools>
 
   <autotools id="eos-knowledge-lib">
-    <branch revision="master"/>
-  </autotools>
-
-  <autotools id="eos-knowledge-engine" skip-autogen="true" makeargs="-v" skip-install="true">
     <branch revision="master"/>
   </autotools>
 
@@ -171,7 +167,7 @@
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="eos-resume" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="eos-resume">
     <branch revision="master"/>
   </autotools>
 
@@ -179,11 +175,15 @@
     <branch revision="master"/>
   </autotools>
 
-  <autotools id="eos-translation" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="eos-translation">
     <branch revision="master"/>
   </autotools>
 
   <autotools id="eos-typing">
+    <branch revision="master"/>
+  </autotools>
+
+  <autotools id="eos-tutorial">
     <branch revision="master"/>
   </autotools>
 
