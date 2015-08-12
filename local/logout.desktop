@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Logout
+Exec=gnome-session-quit
+Icon=/usr/share/icons/gnome/scalable/actions/edit-undo-symbolic.svg
+StartupWMClass=www.irccloud.com

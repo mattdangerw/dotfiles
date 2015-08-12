@@ -5,6 +5,7 @@
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 
 function backup_and_link() {
+    mkdir -p $(dirname $2)
     # If its a symlink, just overwrite. Otherwise make a backup.
     if [ -e $2 -a ! -h $2 ]; then
         backup=${2}.old
@@ -28,3 +29,6 @@ backup_and_link ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-
 backup_and_link ${SCRIPT_DIR}/shell/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/shell/zshrc ~/.zshrc
 backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
+backup_and_link ${SCRIPT_DIR}/local/logout.desktop ~/.local/share/applications/logout.desktop
+backup_and_link ${SCRIPT_DIR}/local/restart.desktop ~/.local/share/applications/restart.desktop
+backup_and_link ${SCRIPT_DIR}/local/shutdown.desktop ~/.local/share/applications/shutdown.desktop
