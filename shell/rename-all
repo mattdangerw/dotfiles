@@ -1,0 +1,39 @@
+#!/bin/bash -e
+
+function to_underscore() {
+    echo $1 | sed -r 's/([a-z0-9])([A-Z])/\1_\L\2/g'
+}
+function to_dash() {
+    echo $1 | sed -r 's/([a-z0-9])([A-Z])/\1-\L\2/g'
+}
+function to_cap() {
+    echo ${1^}
+}
+function rename_git() {
+    for file in $(git ls-files); do
+        dirname=$(dirname $file)
+        basename=$(basename $file)
+        newbasename=$(echo $basename | sed -r "s/$1/$2/g")
+        if [ $basename != $newbasename ]; then
+            git mv $dirname/$basename $dirname/$newbasename
+        fi
+    done
+}
+
+if [ "$#" -lt 2 ]; then
+    echo "Usage: camelCase newCamelCase [DIR]"
+    exit 1
+fi
+
+dir=$3
+if [ -z $dir ]; then
+    dir=$(git rev-parse --show-toplevel)
+fi
+
+pushd $dir > /dev/null
+    rename_git $1 $2
+    sed -ri "s/$1/$2/g" $(git ls-files)
+    sed -ri "s/$(to_underscore $1)/$(to_underscore $2)/g" $(git ls-files)
+    sed -ri "s/$(to_dash $1)/$(to_dash $2)/g" $(git ls-files)
+    sed -ri "s/$(to_cap $1)/$(to_cap $2)/g" $(git ls-files)
+popd
