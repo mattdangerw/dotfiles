@@ -118,9 +118,6 @@ alias which-package='dpkg-query -S'
 # debian
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
-# gsettings
-alias caps-is-control="gsettings set org.gnome.desktop.input-sources xkb-options \"['ctrl:nocaps']\""
-
 function deb-extract() {
     mkdir -p $2
     dpkg-deb -x $1 $2
