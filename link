@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 # Symlinks all the actual locations these config files need to be in right back
 # to this directory, so they can be easily version controlled.
 
@@ -19,17 +19,17 @@ function backup_and_link() {
     ln -sTf $1 $2
 }
 
-backup_and_link ${SCRIPT_DIR}/endless/eos.modules ~/eos.modules
-backup_and_link ${SCRIPT_DIR}/endless/jhbuildrc ~/.jhbuildrc
-backup_and_link ${SCRIPT_DIR}/git/git_template ~/.git_template
-backup_and_link ${SCRIPT_DIR}/git/gitconfig ~/.gitconfig
-backup_and_link ${SCRIPT_DIR}/git/gitignore ~/.gitignore
-backup_and_link ${SCRIPT_DIR}/shell/jshintrc ~/.jshintrc
-backup_and_link ${SCRIPT_DIR}/shell/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
-backup_and_link ${SCRIPT_DIR}/shell/tmux.conf ~/.tmux.conf
-backup_and_link ${SCRIPT_DIR}/shell/profile ~/.profile
-backup_and_link ${SCRIPT_DIR}/shell/quiltrc ~/.quiltrc
-backup_and_link ${SCRIPT_DIR}/shell/zshrc ~/.zshrc
+backup_and_link ${SCRIPT_DIR}/home/eos.modules ~/eos.modules
+backup_and_link ${SCRIPT_DIR}/home/jhbuildrc ~/.jhbuildrc
+backup_and_link ${SCRIPT_DIR}/home/git_template ~/.git_template
+backup_and_link ${SCRIPT_DIR}/home/gitconfig ~/.gitconfig
+backup_and_link ${SCRIPT_DIR}/home/gitignore ~/.gitignore
+backup_and_link ${SCRIPT_DIR}/home/jshintrc ~/.jshintrc
+backup_and_link ${SCRIPT_DIR}/home/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
+backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
+backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
+backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
+backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
 backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
 backup_and_link ${SCRIPT_DIR}/local/logout.desktop ~/.local/share/applications/logout.desktop
 backup_and_link ${SCRIPT_DIR}/local/restart.desktop ~/.local/share/applications/restart.desktop
