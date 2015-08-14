@@ -16,21 +16,18 @@ done
 # Grab sudo rights
 sudo true
 
-# Allows apt-get installing w/o the authentication warning every time
-sudo bash -c "echo 'APT::Get::AllowUnauthenticated \"true\";' > /etc/apt/apt.conf.d/00allowunauthenticated"
-
 sudo apt-get update
+# recommends would get eos-dev-config
+sudo apt-get install -y eos-dev --no-install-recommends
 # get the basic dependencies
-sudo apt-get install -y --force-yes eos-dev python-pip python3-pip npm \
-    gnome-common yelp-tools autotools-dev gnome-system-monitor devhelp \
-    dkms linux-headers-generic openssh-server
+sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp dkms linux-headers-generic
 
 # debian install stuff we dont have on obs
 sudo dpkg -i $SCRIPT_DIR/debians/*
 sudo apt-get install -f
 
 # pip install shit we don't have in debians
-sudo pip-3.3 install pep8
+sudo pip3 install pep8
 sudo pip install transifex-client
 
 # npm install shit we don't have in debians
@@ -38,11 +35,13 @@ sudo npm install -g jshint
 sudo npm install -g csslint
 
 # build deps for most everything else
-sudo apt-get build-dep -y --force-yes eos-shell-content eos-shell eos-sdk \
-    eos-app-store eos-social eos-file-manager eos-theme eos-english \
-    eos-programming gtk+3.0 libsoup2.4 eos-metrics xapian-glib \
-    eos-knowledge-db-build eos-photos eos-knowledge-engine eos-knowledge-lib \
-    yelp eos-metrics-instrumentation
+sudo apt-get build-dep -y eos-shell-content eos-shell eos-sdk \
+    eos-app-store eos-social eos-file-manager eos-theme gtk+3.0 \
+    libsoup2.4 eos-metrics xapian-glib eos-knowledge-db-build \
+    eos-knowledge-engine eos-knowledge-lib yelp eos-metrics-instrumentation
+# photos doesn't work with build dep cause reasons
+sudo apt-get install -y python-gi python-imaging python-scipy python-skimage
+
 
 # oh-my-zsh
 if [ ! -e $HOME/.oh-my-zsh ]; then
@@ -81,7 +80,7 @@ if $BUILD_MODULES; then
 fi
 
 # gsettings
-gsettings set org.gnome.desktop.input-sources xkb-options \"['ctrl:nocaps']\"
+gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Launch Terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Primary><Alt>t'
@@ -91,7 +90,7 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Large Screen'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'xrandr -s 1920x1080'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Super>period'
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']"
 
 # make a sublime project for everything in ~/checkout
 update-sublime-projects
