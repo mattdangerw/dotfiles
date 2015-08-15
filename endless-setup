@@ -20,7 +20,8 @@ sudo apt-get update
 # recommends would get eos-dev-config
 sudo apt-get install -y eos-dev --no-install-recommends
 # get the basic dependencies
-sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp dkms linux-headers-generic
+sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp \
+    dkms linux-headers-generic libtool-bin
 
 # debian install stuff we dont have on obs
 sudo dpkg -i $SCRIPT_DIR/debians/*
@@ -38,9 +39,11 @@ sudo npm install -g csslint
 sudo apt-get build-dep -y eos-shell-content eos-shell eos-sdk \
     eos-app-store eos-social eos-file-manager eos-theme gtk+3.0 \
     libsoup2.4 eos-metrics xapian-glib eos-knowledge-db-build \
-    eos-knowledge-engine eos-knowledge-lib yelp eos-metrics-instrumentation
-# photos doesn't work with build dep cause reasons
-sudo apt-get install -y python-gi python-imaging python-scipy python-skimage
+    eos-knowledge-engine eos-knowledge-lib yelp eos-metrics-instrumentation \
+    mutter eos-app-manager eos-event-recorder-daemon
+# app build dep don't work cause reasons
+sudo apt-get install -y python-gi python-imaging python-scipy python-skimage \
+    python-bs4 python-polib ruby-haml coffeescript
 
 
 # oh-my-zsh

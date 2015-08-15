@@ -21,6 +21,8 @@ module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --e
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
 module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
+module_autogenargs['mutter'] = ''
+module_autogenargs['yelp'] = ''
 
 # custom CFLAGS / environment pieces for the build
 os.environ['CFLAGS'] = '-g -Og -fdiagnostics-color=auto'
