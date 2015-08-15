@@ -21,4 +21,4 @@ if [ -f "$HOME/.secrets" ]; then
   . "$HOME/.secrets"
 fi
 
-PATH="/usr/local/heroku/bin:$HOME/.local/bin:$SCRIPT_DIR:$PATH"
+PATH="/usr/local/heroku/bin:$HOME/.local/bin:$(dirname $SCRIPT_DIR)/scripts:$PATH"
