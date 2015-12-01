@@ -62,8 +62,8 @@
 		"docs/*/xml",
 		"docs/*/html"
 	],
-	"font_face": "DejaVu Sans Mono",
-	"font_size": 12,
+	"font_face": "Fira Mono",
+	"font_size": 10,
 	"ignored_packages":
 	[
 		"Vintage"
