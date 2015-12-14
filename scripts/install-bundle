@@ -10,6 +10,7 @@ pushd $TMP_DIR
 wget $BUNDLE_URL -O $APP_ID.bundle
 wget $SIGNATURE_URL -O $APP_ID.asc
 chmod +rwx .
+eamctl uninstall $APP_ID || true
 eamctl install $APP_ID
 popd
 
