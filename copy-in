@@ -1,0 +1,10 @@
+#!/bin/bash -ex
+
+DIRECTORY=$1
+
+mkdir -p $HOME/checkout
+
+cp $DIRECTORY/.secrets $HOME
+cp $DIRECTORY/.zsh_history $HOME
+cp -r $DIRECTORY/snips $HOME/checkout
+
