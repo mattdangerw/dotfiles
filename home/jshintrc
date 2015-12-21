@@ -1,8 +1,7 @@
 {
-  "esnext": true,
+  "esversion": 6,
   "evil": false,
   "indent": 4,
-  "moz": true,
   "multistr": true,
   "sub": true,
   "trailing": true,
