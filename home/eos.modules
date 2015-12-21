@@ -219,8 +219,7 @@
     <branch revision="master"/>
   </autotools>
 
-  <!-- FIXME: glib bindings aren't working right now -->
-  <autotools id="glib" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="glib">
     <branch revision="master"/>
   </autotools>
 
