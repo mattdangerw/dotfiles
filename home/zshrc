@@ -115,6 +115,10 @@ alias zup='source ~/.zshrc'
 
 alias which-package='dpkg-query -S'
 
+function calc() {
+    python -c "print $@"
+}
+
 # debian
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
