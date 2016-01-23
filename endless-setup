@@ -36,6 +36,7 @@ sudo npm install -g jshint
 sudo npm install -g csslint
 
 # gem install shit we don't have in debians
+sudo gem install gist
 sudo gem install lolcat
 
 # build deps for most everything else
