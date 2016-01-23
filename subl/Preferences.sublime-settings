@@ -62,7 +62,8 @@
 		"jasmine",
 		"m4",
 		"docs/*/xml",
-		"docs/*/html"
+		"docs/*/html",
+		"node_modules"
 	],
 	"font_face": "Fira Mono",
 	"font_size": 10,
@@ -71,7 +72,10 @@
 		"Vintage"
 	],
 	"indent_to_bracket": true,
+	"material_theme_compact_sidebar": true,
 	"material_theme_panel_separator": true,
+	"material_theme_small_tab": true,
+	"material_theme_tabs_autowidth": true,
 	"material_theme_tabs_separator": true,
 	"open_files_in_new_window": false,
 	"overlay_scroll_bars": "enabled",
