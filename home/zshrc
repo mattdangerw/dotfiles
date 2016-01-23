@@ -106,8 +106,8 @@ alias .....='cd ../../../..'
 alias size='command du -sh'
 alias count='wc -l'
 
-alias shutdown='quote && sudo shutdown -h now'
-alias reboot='sudo shutdown -r now'
+alias shutdown='quote && read && shutdown -h now'
+alias reboot='shutdown -r now'
 alias logout='gnome-session-quit'
 
 alias zedit='subl ~/.zshrc'
