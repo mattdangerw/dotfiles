@@ -77,12 +77,6 @@ function say() {
     fi
 }
 
-function fortune() {
-    local phrase
-    phrase=`wget -T 2 -O - -q http://www.iheartquotes.com/api/v1/random\?max_characters=300 || echo "fart"`
-    echo ${phrase} | sed "s/&quot;/\"/g" | sed -e "s!http[s]\?://\S*!!g"
-}
-
 alias quote='say `fortune`'
 alias bored='while :; do quote && sleep 4; done'
 alias lol='say lol'
