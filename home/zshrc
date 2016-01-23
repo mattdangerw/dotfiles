@@ -68,9 +68,9 @@ alias sl='sl'
 # alias sudo='sudo '
 
 function say() {
-    if which cowsay >/dev/null; then
+    if which cowsay >/dev/null && which lolcat >/dev/null; then
         cowfile=`ls /usr/share/cowsay/cows | sort -R | tail -1`
-        cowsay -f $cowfile "$@"
+        cowsay -f $cowfile "$@" | lolcat
         # cowsay -f head-in -e "><" "$@" | cowthink -n -f dragon-and-cow -e "OO" | cowthink -n -s -f bong
     else
         echo $@

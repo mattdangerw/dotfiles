@@ -35,6 +35,9 @@ sudo pip install transifex-client
 sudo npm install -g jshint
 sudo npm install -g csslint
 
+# gem install shit we don't have in debians
+sudo gem install lolcat
+
 # build deps for most everything else
 sudo apt-get build-dep -y eos-shell-content eos-shell eos-sdk \
     eos-app-store eos-social eos-file-manager eos-theme gtk+3.0 \
