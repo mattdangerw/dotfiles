@@ -137,8 +137,8 @@ alias r='run-project'
 alias mr='m && r'
 
 # pipe to grep
-alias -g '@'="| command grep"
-alias dgrep="dpkg -l | command grep"
+alias -g '@'="| command grep --color=auto"
+alias dgrep="dpkg -l | command grep --color=auto"
 
 # add to clipboard
 alias clip="xclip -sel clip"
