@@ -2,6 +2,7 @@
 # Setup script to install everything needed, run jhbuild and get up and running
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
+ARCH=$(dpkg --print-architecture)
 
 BUILD_MODULES=false
 OPTIND=1
@@ -22,10 +23,6 @@ sudo apt-get install -y eos-dev --no-install-recommends
 # get the basic dependencies
 sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp \
     dkms linux-headers-generic libtool-bin
-
-# debian install stuff we dont have on obs
-sudo dpkg -i $SCRIPT_DIR/debians/*
-sudo apt-get install -f
 
 # pip install shit we don't have in debians
 sudo pip3 install pep8
@@ -55,19 +52,11 @@ if [ ! -e $HOME/.oh-my-zsh ]; then
     git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 fi
 
-# generate subl conf files
-subl -b
-sleep 1
-pkill subl
+# debian install stuff we dont have on obs
+sudo dpkg -i $SCRIPT_DIR/debians/*_all.deb $SCRIPT_DIR/debians/*_${ARCH}.deb
+sudo apt-get install -f
 
 $SCRIPT_DIR/link
-
-# add sublime package manager
-if [ ! -e $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package ]; then
-    pushd $HOME/.config/sublime-text-3/Installed\ Packages
-        wget https://sublime.wbond.net/Package%20Control.sublime-package
-    popd
-fi
 
 # install jhbuild
 if [ ! -e $HOME/checkout/jhbuild ]; then
@@ -95,6 +84,7 @@ gsettings set org.gnome.settings-daemon.peripherals.touchpad natural-scroll true
 gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "['<Super>space', '<Alt>F1']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>i']"
+gsettings set org.gtk.Settings.Debug enable-inspector-keybinding true
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/ name 'Launch Terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/ command 'gnome-terminal'
@@ -112,8 +102,22 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/']"
 
-# make a sublime project for everything in ~/checkout
-update-sublime-projects
+if which subl; then
+    # generate subl conf files
+    subl -b
+    sleep 1
+    pkill subl
+
+    # add sublime package manager
+    if [ ! -e $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package ]; then
+        pushd $HOME/.config/sublime-text-3/Installed\ Packages
+            wget https://sublime.wbond.net/Package%20Control.sublime-package
+        popd
+    fi
+
+    # make a sublime project for everything in ~/checkout
+    update-sublime-projects
+fi
 
 zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
 some time to install you packages. When you are ready, press enter to switch to
