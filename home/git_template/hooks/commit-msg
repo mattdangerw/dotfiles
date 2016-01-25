@@ -8,6 +8,7 @@ branch=$(git rev-parse --abbrev-ref HEAD)
 for repo in "sdk" "shell"; do
     if [[ $branch == $repo/* ]] || [[ $branch == debian-$repo/* ]]; then
         number=$(basename $branch)
+        number=${number//[!0-9]/}
         link="[endlessm/eos-$repo#$number]"
         grep -Fq "$link" $1 || {
             echo "issue link: $link"
