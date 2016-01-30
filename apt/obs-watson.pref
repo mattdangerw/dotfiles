@@ -1,0 +1,3 @@
+Package: *
+Pin: release o=/watson/
+Pin-Priority: 1001
