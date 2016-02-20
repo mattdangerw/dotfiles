@@ -3,7 +3,7 @@
 	"auto_complete_commit_on_tab": true,
 	"auto_match_enabled": false,
 	"build-system": "Endless",
-	"color_scheme": "Packages/User/Material.tmTheme",
+	"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
 	"draw_minimap_border": true,
 	"file_exclude_patterns":
 	[
