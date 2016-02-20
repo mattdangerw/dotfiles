@@ -244,6 +244,18 @@ function j()
     fi
 }
 
+
+typeset -gx -A _zip_mode_commands
+typeset -a _zip_mode_completions
+for dir in $HOME/checkout/* ; do
+    local shortcut=$(basename $dir)
+    shortcut=${shortcut#gnome-}
+    shortcut=${shortcut#eos-knowledge-}
+    shortcut=${shortcut#eos-}
+    _zip_mode_commands[$shortcut]=$dir
+    _zip_mode_completions+=("$shortcut:go to $dir")
+done
+
 # Quick navigate commands
 function alias_zip_mode()
 {
@@ -257,16 +269,13 @@ function unalias_zip_mode()
         unalias "$shortcut"
     done
 }
+
+function _z()
+{
+    _describe 'commands' _zip_mode_completions
+}
 function z()
 {
-    typeset -gx -A _zip_mode_commands
-    for dir in $HOME/checkout/* ; do
-        shortcut=$(basename $dir)
-        shortcut=${shortcut#gnome-}
-        shortcut=${shortcut#eos-knowledge-}
-        shortcut=${shortcut#eos-}
-        _zip_mode_commands[$shortcut]=$dir
-    done
     if [ "$#" -eq 0 ]; then
         if [ $ZIP_MODE ]; then
             unset ZIP_MODE
@@ -279,6 +288,7 @@ function z()
         cd ${_zip_mode_commands[$1]}
     fi
 }
+compdef _z z
 if [ $ZIP_MODE ]; then
     alias_zip_mode
 fi
