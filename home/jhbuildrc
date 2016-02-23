@@ -27,7 +27,7 @@ module_autogenargs['yelp'] = ''
 branches['gobject-introspection'] = (None, 'GOBJECT_INTROSPECTION_1_44_0')
 
 # custom CFLAGS / environment pieces for the build
-os.environ['CFLAGS'] = '-g -Og -fdiagnostics-color=auto'
+os.environ['CFLAGS'] = '-Wall -g -O0 -fdiagnostics-color=auto'
 
 # extra arguments to pass to all autogen.sh scripts
 # to speed up builds of GNOME, try '--disable-static --disable-gtk-doc'
