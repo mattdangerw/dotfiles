@@ -59,7 +59,7 @@ sudo apt-get install -f
 $SCRIPT_DIR/link
 
 sudo apt-get update
-sudo apt-get install fortunes fortunes-mod cowsay xclip dos2unix
+sudo apt-get install fortunes cowsay xclip dos2unix
 
 # install jhbuild
 if [ ! -e $HOME/checkout/jhbuild ]; then
