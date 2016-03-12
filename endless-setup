@@ -22,7 +22,7 @@ sudo apt-get update
 sudo apt-get install -y eos-dev --no-install-recommends
 # get the basic dependencies
 sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp \
-    dkms linux-headers-generic libtool-bin
+    dkms linux-headers-generic libtool-bin ruby
 
 # pip install shit we don't have in debians
 sudo pip3 install pep8
