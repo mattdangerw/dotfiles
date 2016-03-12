@@ -33,7 +33,7 @@
   pub = !git publish
   bomb = clean -Xdf
   nuke = clean -xdf
-  reup = !git fetch && git reset --hard @{upstream}
+  reup = !git fetch --all && git reset --hard @{upstream}
   patch = !git format-patch -o ~/checkout/snips
   stage-deletes = !git rm $(git ls-files --deleted)
   stage-all = !git rm $(git ls-files --deleted) && git add .
