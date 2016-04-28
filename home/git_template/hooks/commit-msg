@@ -5,16 +5,18 @@
 
 branch=$(git rev-parse --abbrev-ref HEAD)
 
-for repo in "sdk" "shell"; do
-    if [[ $branch == $repo/* ]] || [[ $branch == debian-$repo/* ]]; then
-        number=$(basename $branch)
-        number=${number//[!0-9]/}
-        link="[endlessm/eos-$repo#$number]"
-        grep -Fq "$link" $1 || {
-            echo "issue link: $link"
-            echo $link >> $1
-        }
-    fi
-done
+if [[ $branch == T* ]] || [[ $branch == debian-T* ]]; then
+    number=${branch//debian-/}
+    number=${branch//T/}
+    number=${number//[!0-9]/}
+    link="https://phabricator.endlessm.com/T$number"
+    # If commit message is empty, then git will want to abort.
+    # Comments don't count.
+    if ! grep --quiet '^[^#].*\w' $1; then exit 0; fi
+    grep --fixed-strings --quiet "$link" $1 || {
+        echo "task link: $link"
+        echo $link >> $1
+    }
+fi
 
 exit 0
