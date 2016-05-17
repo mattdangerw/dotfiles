@@ -81,9 +81,8 @@ fi
 # gsettings
 gsettings set org.gnome.shell icon-grid-layout "$(cat ${SCRIPT_DIR}/icon-layout)"
 gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
-# crappy batter monitoring on my laptop
-gsettings set org.gnome.settings-daemon.plugins.power critical-battery-action 'nothing'
-gsettings set org.gnome.settings-daemon.peripherals.touchpad natural-scroll true
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+gsettings set org.gnome.desktop.wm.keybindings close ['<Alt>F4', '<Ctrl>Q', '<Super>Q']
 gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "['<Super>space', '<Alt>F1']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>i']"
