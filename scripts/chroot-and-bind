@@ -1,0 +1,7 @@
+#!/bin/bash -ex
+
+TARGET=$1
+sudo mount --bind /proc ${TARGET}/proc
+sudo mount --bind /dev ${TARGET}/dev
+sudo mount --bind /sys ${TARGET}/sys
+sudo SHELL=bash chroot ${TARGET}
