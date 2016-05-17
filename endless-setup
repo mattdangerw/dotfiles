@@ -53,8 +53,8 @@ if [ ! -e $HOME/.oh-my-zsh ]; then
 fi
 
 # debian install stuff we dont have on obs
-sudo dpkg -i $SCRIPT_DIR/debians/*_${ARCH}.deb
-sudo apt-get install -f
+# sudo dpkg -i $SCRIPT_DIR/debians/*_${ARCH}.deb
+# sudo apt-get install -f
 
 $SCRIPT_DIR/link
 
