@@ -4,7 +4,7 @@
 # what module set should be used.  The default can be found in
 # jhbuild/defaults.jhbuildrc, but can be any file in the modulesets directory
 # or a URL of a module set file on a web server.
-moduleset = ['gnome-apps-3.16', os.path.expanduser('~/eos.modules')]
+moduleset = ['gnome-apps-3.20', os.path.expanduser('~/eos.modules')]
 #
 # A list of the modules to build.  Defaults to the GNOME core and tested apps.
 modules = ['meta-eos-all']
@@ -23,6 +23,7 @@ module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
 module_autogenargs['mutter'] = ''
 module_autogenargs['yelp'] = ''
+module_autogenargs['gtk'] = '--enable-debug --disable-gtk-doc'
 
 branches['gobject-introspection'] = (None, 'GOBJECT_INTROSPECTION_1_44_0')
 
@@ -31,7 +32,7 @@ os.environ['CFLAGS'] = '-Wall -g -O0 -fdiagnostics-color=auto'
 
 # extra arguments to pass to all autogen.sh scripts
 # to speed up builds of GNOME, try '--disable-static --disable-gtk-doc'
-autogenargs = '--enable-debug=yes --enable-gtk-doc'
+autogenargs = '--enable-debug --enable-gtk-doc'
 
 # A string listing additional arguments to be passed to make.
 # Set makeargs to 'V=1' for verbose build output.

@@ -38,8 +38,7 @@
     <branch revision="master"/>
   </autotools>
 
-  <!-- FIXME: desktop doesn't work inside of jhbuild -->
-  <autotools id="eos-desktop" skip-autogen="true" makeargs="-v" skip-install="true">
+  <autotools id="eos-desktop">
     <branch revision="master"/>
   </autotools>
 
