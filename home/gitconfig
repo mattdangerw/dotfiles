@@ -22,6 +22,7 @@
   re = rebase
   ri = rebase -i
   rim = rebase -i master
+  crp = cherry-pick
   ch = checkout
   co = commit
   edit = commit --amend
