@@ -52,6 +52,7 @@ alias files='xdg-open .'
 alias term='gnome-terminal'
 alias gdb='gdb -q -ex r'
 alias tree='tree -C'
+alias woman=man
 
 # some more ls aliases
 alias l='ls'
