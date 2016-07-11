@@ -50,7 +50,7 @@ alias wget='wget -c'
 alias google='google-chrome'
 alias files='xdg-open .'
 alias term='gnome-terminal'
-alias gdb='gdb -q -ex r'
+alias gdbr='gdb -q -ex r'
 alias tree='tree -C'
 alias woman=man
 
