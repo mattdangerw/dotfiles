@@ -1,6 +1,6 @@
 [user]
-	name = Matt Watson
-	email = mattdangerw@gmail.com
+	name = Shai Wilson
+	email = shai.wilson@endlessm.com
 [core]
 	editor = atom -w
 	excludesfile = ~/.gitignore
