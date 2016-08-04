@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Terminal=false
-Type=Application
-Name=Shutdown
-Exec=shutdown -h now
-Icon=/usr/share/icons/Adwaita/scalable/actions/system-shutdown-symbolic.svg
-StartupWMClass=www.irccloud.com

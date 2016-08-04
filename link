@@ -44,10 +44,6 @@ backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
 backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
 backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
-backup_and_link ${SCRIPT_DIR}/local/desktop-directories ~/.local/share/desktop-directories
-backup_and_link ${SCRIPT_DIR}/local/logout.desktop ~/.local/share/applications/logout.desktop
-backup_and_link ${SCRIPT_DIR}/local/restart.desktop ~/.local/share/applications/restart.desktop
-backup_and_link ${SCRIPT_DIR}/local/shutdown.desktop ~/.local/share/applications/shutdown.desktop
 backup_and_link ${SCRIPT_DIR}/local/fonts ~/.local/share/fonts
 sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-custom.list /etc/apt/sources.list.d/obs-custom.list
 sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-watson.pref /etc/apt/preferences.d/obs-custom.pref
