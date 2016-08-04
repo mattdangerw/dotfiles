@@ -44,7 +44,6 @@ backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
 backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
 backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
-backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
 backup_and_link ${SCRIPT_DIR}/local/desktop-directories ~/.local/share/desktop-directories
 backup_and_link ${SCRIPT_DIR}/local/logout.desktop ~/.local/share/applications/logout.desktop
 backup_and_link ${SCRIPT_DIR}/local/restart.desktop ~/.local/share/applications/restart.desktop

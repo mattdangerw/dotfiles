@@ -106,23 +106,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/']"
 
-if which subl; then
-    # generate subl conf files
-    subl -b
-    sleep 1
-    pkill subl
-
-    # add sublime package manager
-    if [ ! -e $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package ]; then
-        pushd $HOME/.config/sublime-text-3/Installed\ Packages
-            wget https://sublime.wbond.net/Package%20Control.sublime-package
-        popd
-    fi
-
-    # make a sublime project for everything in ~/checkout
-    update-sublime-projects
-fi
-
 zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
 some time to install you packages. When you are ready, press enter to switch to
 zsh (needs password) and reboot.'"
