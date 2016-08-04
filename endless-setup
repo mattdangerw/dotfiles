@@ -81,30 +81,14 @@ if $BUILD_MODULES; then
 fi
 
 # gsettings
-gsettings set org.gnome.shell icon-grid-layout "$(cat ${SCRIPT_DIR}/icon-layout)"
 gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
-gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4', '<Ctrl>Q', '<Super>Q']"
-gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "['<Super>space', '<Alt>F1']"
-gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>i']"
 gsettings set org.gtk.Settings.Debug enable-inspector-keybinding true
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/ name 'Launch Terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/ command 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/ binding '<Primary><Alt>t'
-SCREEN_SCALE="xrandr --output $(xrandr | grep primary | awk '{print $1;}') --scale-from 720x480"
-SCREEN_RESTORE="xrandr --output $(xrandr | grep primary | awk '{print $1;}') --transform none"
-TEXT_SCALE="gsettings set org.gnome.desktop.interface text-scaling-factor 1.25"
-TEXT_RESTORE="gsettings set org.gnome.desktop.interface text-scaling-factor 1.0"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/ name 'Small Screen'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/ command "bash -c \"$SCREEN_SCALE && $TEXT_SCALE\""
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/ binding '<Super>comma'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/ name 'Large Screen'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/ command "bash -c \"$SCREEN_RESTORE && $TEXT_RESTORE\""
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/ binding '<Super>period'
-
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/small-screen/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/large-screen/']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launch-terminal/']"
 
 zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
 some time to install you packages. When you are ready, press enter to switch to
