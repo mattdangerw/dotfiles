@@ -41,10 +41,10 @@ sudo apt-get build-dep -y eos-shell-content eos-shell libendless-0-0 \
     eos-app-store eos-social eos-file-manager eos-theme gtk+3.0 \
     libsoup2.4 eos-metrics xapian-glib eos-knowledge-db-build \
     eos-knowledge-lib yelp eos-metrics-instrumentation \
-    mutter eos-app-manager eos-event-recorder-daemon rpm
+    mutter eos-app-manager eos-event-recorder-daemon rpm pbuilder
 # app build dep don't work cause reasons
-sudo apt-get install -y python-gi python-imaging python-scipy python-skimage \
-    python-bs4 python-polib ruby-haml coffeescript
+# sudo apt-get install -y python-gi python-imaging python-scipy python-skimage \
+#     python-bs4 python-polib ruby-haml coffeescript
 
 
 # oh-my-zsh
