@@ -25,4 +25,4 @@ if [ -f "$HOME/.secrets" ]; then
   . "$HOME/.secrets"
 fi
 
-PATH="/usr/local/heroku/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"
+PATH="/usr/local/heroku/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$HOME/checkout/eos-build/ci-integration:$PATH"
