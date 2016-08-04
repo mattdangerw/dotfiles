@@ -9,9 +9,7 @@
 #umask 022
 PROFILE_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.profile))
 
-export EDITOR="subl -w"
-export DEBFULLNAME="Matt Watson"
-export DEBEMAIL="mattdangerw@gmail.com"
+export EDITOR="atom -w"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -25,4 +23,4 @@ if [ -f "$HOME/.secrets" ]; then
   . "$HOME/.secrets"
 fi
 
-PATH="/usr/local/heroku/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$HOME/checkout/eos-build/ci-integration:$PATH"
+PATH="$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"

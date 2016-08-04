@@ -2,7 +2,7 @@
 	name = Matt Watson
 	email = mattdangerw@gmail.com
 [core]
-	editor = subl -w
+	editor = atom -w
 	excludesfile = ~/.gitignore
 [color]
 	status = auto
@@ -12,31 +12,6 @@
 [credential]
 	helper = cache --timeout=28800
 [push]
-	default = upstream
-[alias]
-  s = status
-  d = diff -M
-  dm = diff -M master
-  du = !git fetch && git diff -M @{upstream}
-  br = branch
-  re = rebase
-  ri = rebase -i
-  rim = rebase -i master
-  crp = cherry-pick
-  ch = checkout
-  co = commit
-  edit = commit --amend
-  fix = commit --amend --no-edit
-  wip = !bash -c 'git commit -m \"wip $1\"' -
-  split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
-  graph = log --graph --pretty=oneline --abbrev-commit --color --decorate
-  publish = push --set-upstream origin HEAD
-  pub = !git publish
-  bomb = clean -Xdf
-  nuke = clean -xdf
-  reup = !git fetch --all && git reset --hard @{upstream}
-  patch = !git format-patch -o ~/checkout/snips
-  stage-deletes = !git rm $(git ls-files --deleted)
-  stage-all = !git rm $(git ls-files --deleted) && git add .
+	default = simple
 [init]
 	templatedir = ~/.git_template
