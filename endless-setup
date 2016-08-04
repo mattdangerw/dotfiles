@@ -56,6 +56,8 @@ fi
 # sudo dpkg -i $SCRIPT_DIR/debians/*_${ARCH}.deb
 # sudo apt-get install -f
 
+curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+
 $SCRIPT_DIR/link
 
 sudo apt-get update

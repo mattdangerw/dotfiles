@@ -52,3 +52,6 @@ backup_and_link ${SCRIPT_DIR}/local/shutdown.desktop ~/.local/share/applications
 backup_and_link ${SCRIPT_DIR}/local/fonts ~/.local/share/fonts
 sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-custom.list /etc/apt/sources.list.d/obs-custom.list
 sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-watson.pref /etc/apt/preferences.d/obs-custom.pref
+sudo_backup_and_link ${SCRIPT_DIR}/apt/nodesource.list /etc/apt/preferences.d/nodesource.list
+# sudo_backup_and_link ${SCRIPT_DIR}/apt/debian.list /etc/apt/sources.list.d/debian.list
+# sudo_backup_and_link ${SCRIPT_DIR}/apt/debian.pref /etc/apt/preferences.d/debian.pref
