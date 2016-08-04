@@ -17,7 +17,7 @@ prefix = os.path.expanduser('~/install')
 
 # are these necessary?
 module_autogenargs['eos-sdk'] = '--enable-gtk-doc --enable-gir-doc --enable-strict-flags --enable-js-doc'
-module_autogenargs['eos-knowledge-lib'] = '--enable-gtk-doc --enable-gir-doc --enable-js-doc --enable-inspector'
+module_autogenargs['eos-knowledge-lib'] = '--enable-js-doc --enable-inspector'
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
 module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
