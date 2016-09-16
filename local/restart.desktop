@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Terminal=false
-Type=Application
-Name=Restart
-Exec=reboot
-Icon=/usr/share/icons/Adwaita/scalable/actions/view-refresh-symbolic.svg
-StartupWMClass=www.irccloud.com
