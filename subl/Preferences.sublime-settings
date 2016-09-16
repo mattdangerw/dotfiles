@@ -58,6 +58,7 @@
 		".deps",
 		".git",
 		".libs",
+		".flatpak-builder",
 		"autom4te.cache",
 		"jasmine",
 		"m4",
