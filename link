@@ -39,6 +39,7 @@ backup_and_link ${SCRIPT_DIR}/home/git_template ~/.git_template
 backup_and_link ${SCRIPT_DIR}/home/gitconfig ~/.gitconfig
 backup_and_link ${SCRIPT_DIR}/home/gitignore ~/.gitignore
 backup_and_link ${SCRIPT_DIR}/home/jshintrc ~/.jshintrc
+backup_and_link ${SCRIPT_DIR}/home/npmrc ~/.npmrc
 backup_and_link ${SCRIPT_DIR}/home/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
 backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
 backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
