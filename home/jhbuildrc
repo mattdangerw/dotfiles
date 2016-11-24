@@ -23,11 +23,7 @@ module_autogenargs['eos-knowledge-lib'] = '--enable-js-doc --enable-inspector'
 module_autogenargs['eos-metrics'] = '--enable-gtk-doc --enable-strict-flags'
 module_autogenargs['eos-knowledge-apps'] = '--enable-database=no'
 module_autogenargs['eos-virtual-school'] = '--enable-inspector'
-module_autogenargs['mutter'] = ''
-module_autogenargs['yelp'] = ''
 module_autogenargs['gtk'] = '--enable-debug --disable-gtk-doc'
-
-branches['gobject-introspection'] = (None, 'GOBJECT_INTROSPECTION_1_44_0')
 
 # custom CFLAGS / environment pieces for the build
 os.environ['CFLAGS'] = '-Wall -g -O0 -fdiagnostics-color=auto'
