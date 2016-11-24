@@ -22,7 +22,7 @@ sudo apt-get update
 sudo apt-get install -y eos-dev --no-install-recommends
 # get the basic dependencies
 sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp \
-    dkms linux-headers-generic libtool-bin ruby
+    dkms linux-headers-generic libtool-bin ruby rpm pbuilder
 
 # pip install shit we don't have in debians
 sudo pip3 install pep8
@@ -41,7 +41,7 @@ sudo apt-get build-dep -y eos-shell-content eos-shell libendless-0-0 \
     eos-app-store eos-social eos-file-manager eos-theme gtk+3.0 \
     libsoup2.4 eos-metrics xapian-glib eos-knowledge-db-build \
     eos-knowledge-lib yelp eos-metrics-instrumentation \
-    mutter eos-app-manager eos-event-recorder-daemon rpm pbuilder
+    mutter eos-app-manager eos-event-recorder-daemon
 # app build dep don't work cause reasons
 # sudo apt-get install -y python-gi python-imaging python-scipy python-skimage \
 #     python-bs4 python-polib ruby-haml coffeescript
