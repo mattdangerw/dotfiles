@@ -28,10 +28,6 @@ sudo apt-get install -y python-pip python3-pip npm autotools-dev tree devhelp \
 sudo pip3 install pep8
 sudo pip install transifex-client
 
-# npm install shit we don't have in debians
-sudo npm install -g jshint
-sudo npm install -g csslint
-
 # gem install shit we don't have in debians
 sudo gem install gist
 sudo gem install lolcat
@@ -59,6 +55,10 @@ fi
 curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
 
 $SCRIPT_DIR/link
+
+# npm install shit we don't have in debians
+npm install -g jshint
+npm install -g csslint
 
 sudo apt-get update
 sudo apt-get install fortunes cowsay xclip dos2unix
