@@ -82,6 +82,7 @@ fi
 
 # gsettings
 gsettings set org.gnome.shell icon-grid-layout "$(cat ${SCRIPT_DIR}/icon-layout)"
+gsettings set org.gnome.shell taskbar-pins "$(cat ${SCRIPT_DIR}/taskbar-pins)"
 gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
 gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4', '<Ctrl>Q', '<Super>Q']"
