@@ -13,6 +13,8 @@
 	helper = cache --timeout=28800
 [push]
 	default = upstream
+[bz]
+  browser = google-chrome
 [alias]
   s = status
   d = diff -M
