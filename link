@@ -33,9 +33,6 @@ function sudo_backup_and_link() {
     sudo ln -sTf $1 $2
 }
 
-backup_and_link ${SCRIPT_DIR}/home/eos.modules ~/eos.modules
-backup_and_link ${SCRIPT_DIR}/home/jhbuildrc ~/.jhbuildrc
-backup_and_link ${SCRIPT_DIR}/home/git_template ~/.git_template
 backup_and_link ${SCRIPT_DIR}/home/gitconfig ~/.gitconfig
 backup_and_link ${SCRIPT_DIR}/home/gitignore ~/.gitignore
 backup_and_link ${SCRIPT_DIR}/home/jshintrc ~/.jshintrc
@@ -45,12 +42,4 @@ backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
 backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
 backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
-backup_and_link ${SCRIPT_DIR}/subl ~/.config/sublime-text-3/Packages/User
-backup_and_link ${SCRIPT_DIR}/local/desktop-directories ~/.local/share/desktop-directories
 backup_and_link ${SCRIPT_DIR}/local/fonts ~/.local/share/fonts
-sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-custom.list /etc/apt/sources.list.d/obs-custom.list
-sudo_backup_and_link ${SCRIPT_DIR}/apt/obs-watson.pref /etc/apt/preferences.d/obs-custom.pref
-sudo_backup_and_link ${SCRIPT_DIR}/apt/nodesource.list /etc/apt/sources.list.d/nodesource.list
-sudo_backup_and_link ${SCRIPT_DIR}/apt/nodesource.pref /etc/apt/preferences.d/nodesource.pref
-# sudo_backup_and_link ${SCRIPT_DIR}/apt/debian.list /etc/apt/sources.list.d/debian.list
-# sudo_backup_and_link ${SCRIPT_DIR}/apt/debian.pref /etc/apt/preferences.d/debian.pref
