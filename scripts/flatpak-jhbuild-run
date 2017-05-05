@@ -1,0 +1,17 @@
+#!/bin/bash -ex
+
+# Run a command in jhbuild inside of flatpak
+
+if [[ $# -eq 0 ]] ; then
+    echo "$0 APP_ID [COMMAND]"
+    exit 0
+fi
+
+APP_ID="$1"
+COMMAND="$2"
+
+if [ -z $COMMAND ]; then
+    COMMAND=$APP_ID
+fi
+
+flatpak run --devel --runtime=//master --command=bash --filesystem=home $APP_ID -c "$(which jhbuild) run $COMMAND"
