@@ -1,4 +1,0 @@
-deb http://obs-master.endlessm-sf.com:82/home:/watson:/branches:/eos:/master:/core/core/ /
-deb-src http://obs-master.endlessm-sf.com:82/home:/watson:/branches:/eos:/master:/core/core/ /
-deb http://obs-master.endlessm-sf.com:82/home:/watson:/branches:/eos:/master:/endless/endless/ /
-deb-src http://obs-master.endlessm-sf.com:82/home:/watson:/branches:/eos:/master:/endless/endless/ /
