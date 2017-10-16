@@ -6,5 +6,5 @@ mkdir -p $HOME/checkout
 
 cp $DIRECTORY/.secrets $HOME
 cp $DIRECTORY/.zsh_history $HOME
-cp -r $DIRECTORY/snips $HOME/checkout
-
+cp -r $DIRECTORY/.ssh $HOME
+cp -r $DIRECTORY/.gnupg $HOME
