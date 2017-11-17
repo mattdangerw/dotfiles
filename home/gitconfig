@@ -2,7 +2,6 @@
 	name = Matt Watson
 	email = mattdangerw@gmail.com
 [core]
-	editor = atom -w
 	excludesfile = ~/.gitignore
 [color]
 	status = auto
