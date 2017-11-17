@@ -1,0 +1,6 @@
+#!/bin/bash -ex
+
+flatpak build-init --writable-sdk --var=com.endlessm.Sdk --arch=x86_64 $HOME/local-runtime/build com.endlessm.LocalSdk com.endlessm.Sdk com.endlessm.Platform master
+flatpak build --share=network --share=ipc --socket=x11 --socket=pulseaudio --socket=system-bus --socket=session-bus $HOME/local-runtime/build bash
+flatpak build-finish $HOME/local-runtime/build
+flatpak build-init --update --writable-sdk --sdk-dir=platform --arch=x86_64 --sdk-extension=org.freedesktop.Platform.Locale $HOME/checkout/gnome-sdk-images/sdk org.gnome.Sdk org.freedesktop.Platform org.freedesktop.Platform 1.4

@@ -42,8 +42,8 @@ source $HOME/.profile
 # support 256 colors
 export TERM=xterm-256color
 
-#git uses sublime
-export EDITOR="subl -w"
+#git uses atom
+export EDITOR="atom -w"
 
 # resume downloads if dc'd
 alias wget='wget -c'
@@ -87,10 +87,10 @@ alias hey='say oh hai'
 alias fart='say pffttbbttbt'
 
 # apt crap
-alias install='sudo apt-get install'
-alias remove='sudo apt-get remove'
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get update && sudo apt-get dist-upgrade'
+alias install='sudo apt install'
+alias remove='sudo apt remove'
+alias update='sudo apt update'
+alias upgrade='sudo apt update && sudo apt dist-upgrade'
 alias search='apt-cache search'
 
 # more dots
@@ -106,7 +106,7 @@ alias shutdown='quote && read && shutdown -h now'
 alias reboot='shutdown -r now'
 alias logout='gnome-session-quit'
 
-alias zedit='subl ~/.zshrc'
+alias zedit='atom ~/.zshrc'
 alias zup='source ~/.zshrc'
 
 alias which-package='dpkg-query -S'
@@ -301,4 +301,3 @@ if [ -z $FIRST_INCLUDE ]; then
     # z
     # j
 fi
-

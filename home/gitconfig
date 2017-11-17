@@ -2,7 +2,7 @@
 	name = Matt Watson
 	email = mattdangerw@gmail.com
 [core]
-	editor = subl -w
+	editor = atom -w
 	excludesfile = ~/.gitignore
 [color]
 	status = auto
@@ -40,5 +40,3 @@
   patch = !git format-patch -o ~/checkout/snips
   stage-deletes = !git rm $(git ls-files --deleted)
   stage-all = !git rm $(git ls-files --deleted) && git add .
-[init]
-	templatedir = ~/.git_template
