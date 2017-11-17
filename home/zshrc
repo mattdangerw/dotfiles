@@ -153,7 +153,7 @@ function chpwd() {
     ls
 }
 
-if which hub >/dev/null; then
+if which hub &>/dev/null; then
   alias git=hub
 fi
 
