@@ -22,7 +22,12 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 if [ -f "$HOME/.secrets" ]; then
-  . "$HOME/.secrets"
+    . "$HOME/.secrets"
 fi
 
-PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$HOME/checkout/eos-build/ci-integration:$PATH"
+PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"
+# For AWS
+ANACONDA_DIR="$HOME/anaconda3/bin"
+if [ -d $ANACONDA_DIR ]; then
+    PATH="$PATH:$ANACONDA_DIR"
+fi
