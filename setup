@@ -1,0 +1,33 @@
+#!/bin/bash -ex
+# Really simple setup script for debian systems
+
+SCRIPT_DIR=$(dirname $(readlink -f $0))
+ARCH=$(dpkg --print-architecture)
+
+# oh-my-zsh
+if [ ! -e $HOME/.oh-my-zsh ]; then
+    git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+fi
+
+# Grab sudo rights
+sudo true
+
+$SCRIPT_DIR/link
+
+sudo apt-get update
+sudo apt-get install fortunes cowsay xclip dos2unix zsh tmux vim git
+
+# gsettings
+if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
+  gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
+  gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+  gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+  gsettings set org.gtk.Settings.Debug enable-inspector-keybinding true
+fi
+
+zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
+some time to install you packages. When you are ready, press enter to switch to
+zsh (needs password) and reboot.'"
+read
+bash -c "chsh -s $(which zsh)"
+sudo reboot
