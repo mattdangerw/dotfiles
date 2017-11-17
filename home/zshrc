@@ -252,42 +252,15 @@ for dir in $HOME/checkout/* ; do
     _zip_mode_completions+=("$shortcut:go to $dir")
 done
 
-# Quick navigate commands
-function alias_zip_mode()
-{
-    for shortcut in ${(@k)_zip_mode_commands}; do
-        alias "$shortcut"="cd ${_zip_mode_commands[$shortcut]}"
-    done
-}
-function unalias_zip_mode()
-{
-    for shortcut in ${(@k)_zip_mode_commands}; do
-        unalias "$shortcut"
-    done
-}
-
 function _z()
 {
     _describe 'commands' _zip_mode_completions
 }
 function z()
 {
-    if [ "$#" -eq 0 ]; then
-        if [ $ZIP_MODE ]; then
-            unset ZIP_MODE
-            unalias_zip_mode
-        else
-            export ZIP_MODE=true
-            alias_zip_mode
-        fi
-    else
-        cd ${_zip_mode_commands[$1]}
-    fi
+    cd ${_zip_mode_commands[$1]}
 }
 compdef _z z
-if [ $ZIP_MODE ]; then
-    alias_zip_mode
-fi
 
 h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
