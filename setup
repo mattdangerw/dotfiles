@@ -25,9 +25,6 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
   gsettings set org.gtk.Settings.Debug enable-inspector-keybinding true
 fi
 
-zsh -c "source $HOME/.zshrc && say 'DONE! When sublime next starts up, give it
-some time to install you packages. When you are ready, press enter to switch to
-zsh (needs password) and reboot.'"
-read
-bash -c "chsh -s $(which zsh)"
-sudo reboot
+sudo chsh -s $(which zsh) $USER
+zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and should be all set in your
+new shell.'"
