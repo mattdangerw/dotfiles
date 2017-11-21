@@ -15,7 +15,11 @@ sudo true
 $SCRIPT_DIR/link
 
 sudo apt-get update
-sudo apt-get install fortunes cowsay xclip dos2unix zsh tmux vim git
+sudo apt-get install -y fortunes cowsay xclip dos2unix zsh tmux tree vim git ruby
+
+# gem install shit we don't have in debians
+sudo gem install gist
+sudo gem install lolcat
 
 # gsettings
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
