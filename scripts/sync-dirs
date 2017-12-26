@@ -1,0 +1,20 @@
+#!/bin/bash -ex
+
+HOST=$1
+PEMFILE=$2
+SOURCE=$3
+DEST=$4
+
+if [ -z $HOST ] || [ -z $PEMFILE ] || [ -z $SOURCE ]; then
+    echo "Usage: $0 HOST PEMFILE SOURCE [DEST]"
+    exit 1
+fi
+
+if [ -z $DEST ]; then
+    DEST=$SOURCE
+fi
+
+while true; do  
+  rsync -avz -e "ssh -i $PEMFILE -o StrictHostKeyChecking=no" --exclude='.git/' $SOURCE $HOST:$DEST
+  inotifywait -r -e modify,attrib,close_write,move,create,delete --exclude='.git/' $SOURCE
+done
