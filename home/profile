@@ -9,7 +9,7 @@
 #umask 022
 PROFILE_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.profile))
 
-export EDITOR="atom -w"
+export EDITOR="code -w"
 export DEBFULLNAME="Matt Watson"
 export DEBEMAIL="mattdangerw@gmail.com"
 
