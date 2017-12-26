@@ -42,9 +42,6 @@ source $HOME/.profile
 # support 256 colors
 export TERM=xterm-256color
 
-#git uses atom
-export EDITOR="atom -w"
-
 # resume downloads if dc'd
 alias wget='wget -c'
 alias google='google-chrome'
