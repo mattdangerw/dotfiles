@@ -125,14 +125,6 @@ function deb-rebuild() {
     dpkg -b $1 $2
 }
 
-function pin-endless() {
-    sudo ln -sTf ${ZSH_SCRIPT_DIR}/../apt/obs-endless.pref /etc/apt/preferences.d/obs-custom.pref
-}
-
-function pin-watson() {
-    sudo ln -sTf ${ZSH_SCRIPT_DIR}/../apt/obs-watson.pref /etc/apt/preferences.d/obs-custom.pref
-}
-
 alias m='build-project'
 alias r='run-project'
 alias mr='m && r'
