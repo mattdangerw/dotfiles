@@ -43,4 +43,4 @@ backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
 backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
 backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
 backup_and_link ${SCRIPT_DIR}/home/hyper.js ~/.hyper.js
-backup_and_link ${SCRIPT_DIR}/local/fonts ~/.local/share/fonts
+backup_and_link ${SCRIPT_DIR}/home/local/share/fonts ~/.local/share/fonts
