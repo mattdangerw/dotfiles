@@ -3,44 +3,31 @@
 # to this directory, so they can be easily version controlled.
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
+DOTFILE_DIR=${SCRIPT_DIR}/home
 
 function backup_and_link() {
-    mkdir -p $(dirname $2)
+    SOURCE=${DOTFILE_DIR}/${1}
+    DEST=${HOME}/.${1}
+    mkdir -p $(dirname $DEST)
     # If its a symlink, just overwrite. Otherwise make a backup.
-    if [ -e $2 -a ! -h $2 ]; then
-        backup=${2}.old
+    if [ -e $DEST -a ! -h $DEST ]; then
+        backup=${DEST}.old
         if [ -e $backup ]; then
-            echo "$2 and $backup exist, clean up your shit"
+            echo "$DEST and $backup exist, clean up your shit"
             exit 1
         fi
-        echo "Moving existing $2 to ${2}.old"
-        mv $2 $backup
+        echo "Moving existing $DEST to ${DEST}.old"
+        mv $DEST $backup
     fi
-    ln -sTf $1 $2
+    ln -sTf $SOURCE $DEST
 }
 
-function sudo_backup_and_link() {
-    # If its a symlink, just overwrite. Otherwise make a backup.
-    if [ -e $2 -a ! -h $2 ]; then
-        backup=${2}.old
-        if [ -e $backup ]; then
-            echo "$2 and $backup exist, clean up your shit"
-            exit 1
-        fi
-        echo "Moving existing $2 to ${2}.old"
-        sudo mv $2 $backup
-    fi
-    sudo ln -sTf $1 $2
-}
-
-backup_and_link ${SCRIPT_DIR}/home/gitconfig ~/.gitconfig
-backup_and_link ${SCRIPT_DIR}/home/gitignore ~/.gitignore
-backup_and_link ${SCRIPT_DIR}/home/jshintrc ~/.jshintrc
-backup_and_link ${SCRIPT_DIR}/home/npmrc ~/.npmrc
-backup_and_link ${SCRIPT_DIR}/home/oh-my-zsh/custom/matt.zsh-theme ~/.oh-my-zsh/custom/matt.zsh-theme
-backup_and_link ${SCRIPT_DIR}/home/tmux.conf ~/.tmux.conf
-backup_and_link ${SCRIPT_DIR}/home/profile ~/.profile
-backup_and_link ${SCRIPT_DIR}/home/quiltrc ~/.quiltrc
-backup_and_link ${SCRIPT_DIR}/home/zshrc ~/.zshrc
-backup_and_link ${SCRIPT_DIR}/home/hyper.js ~/.hyper.js
-backup_and_link ${SCRIPT_DIR}/home/local/share/fonts ~/.local/share/fonts
+pushd $DOTFILE_DIR
+for file in $(find .  -maxdepth 1 -type f -printf '%P\n'); do
+    backup_and_link $file
+done
+# List nested directories explicitly, cause we may want to choose how to link
+# them. i.e. link entire diretory or individual files
+backup_and_link oh-my-zsh/custom/matt.zsh-theme
+backup_and_link local/share/fonts
+popd
