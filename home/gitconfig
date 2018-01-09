@@ -16,9 +16,9 @@
   browser = google-chrome
 [alias]
   s = status
-  d = diff -M
-  dm = diff -M master
-  du = !git fetch && git diff -M @{upstream}
+  d = diff -M --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+  dm = !git d master
+  du = !git fetch && git d @{upstream}
   br = branch
   re = rebase
   ri = rebase -i
