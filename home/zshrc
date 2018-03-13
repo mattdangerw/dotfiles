@@ -83,6 +83,11 @@ alias yo='say yo-yo'
 alias hey='say oh hai'
 alias fart='say pffttbbttbt'
 
+# don't type this training
+alias npm='say NoOOoOO npm'
+alias subl='say NoOOoOO subl'
+alias atom='say NoOOoOO atom'
+
 # apt crap
 alias install='sudo apt install'
 alias remove='sudo apt remove'
