@@ -25,7 +25,8 @@ if [ -f "$HOME/.secrets" ]; then
     . "$HOME/.secrets"
 fi
 
-PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"
+PATH="$HOME/.yarn/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"
+
 # For AWS
 ANACONDA_DIR="$HOME/anaconda3/bin"
 if [ -d $ANACONDA_DIR ]; then
