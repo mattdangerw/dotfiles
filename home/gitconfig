@@ -16,7 +16,8 @@
   browser = google-chrome
 [alias]
   s = status
-  d = diff -M --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+  d = diff -M
+  dw = diff -M --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
   dm = !git d master
   du = !git fetch && git d @{upstream}
   br = branch
