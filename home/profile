@@ -9,9 +9,13 @@
 #umask 022
 PROFILE_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.profile))
 
-export EDITOR="code -w"
+export EDITOR="vim"
 export DEBFULLNAME="Matt Watson"
 export DEBEMAIL="mattdangerw@gmail.com"
+
+if which code >/dev/null; then
+    export EDITOR="code -w"
+fi
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
