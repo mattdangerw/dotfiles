@@ -215,52 +215,11 @@ if [ $GIT_MODE ]; then
     alias_git_mode
 fi
 
-function j()
-{
-    if [ "$#" -eq 0 ]; then
-        if [[ -z $UNDER_JHBUILD ]]; then
-            command jhbuild shell
-        else
-            exit
-        fi
-    else
-        command jhbuild run $@
-    fi
-}
-
-
-typeset -gx -A _zip_mode_commands
-typeset -a _zip_mode_completions
-for dir in $HOME/checkout/* ; do
-    local shortcut=$(basename $dir)
-    shortcut=${shortcut#gnome-}
-    shortcut=${shortcut#eos-knowledge-}
-    shortcut=${shortcut#eos-}
-    _zip_mode_commands[$shortcut]=$dir
-    _zip_mode_completions+=("$shortcut:go to $dir")
-done
-
-function _z()
-{
-    _describe 'commands' _zip_mode_completions
-}
-function z()
-{
-    cd ${_zip_mode_commands[$1]}
-}
-compdef _z z
-
-h() { cd ~/$1; }
-_h() { _files -W ~/ -/; }
-compdef _h h
-
 alias c="command"
 
 if [ -z $FIRST_INCLUDE ]; then
     export FIRST_INCLUDE=true
     g
-    # z
-    # j
 fi
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
