@@ -29,8 +29,7 @@ if [ -f "$HOME/.secrets" ]; then
     . "$HOME/.secrets"
 fi
 
-PATH="$HOME/.yarn/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:$PATH"
-
+PATH="$HOME/.yarn/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:/usr/games:$PATH"
 # For AWS
 ANACONDA_DIR="$HOME/anaconda3/bin"
 if [ -d $ANACONDA_DIR ]; then
