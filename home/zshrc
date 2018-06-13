@@ -50,7 +50,8 @@ alias lt='ls -Alhtr'
 
 # easy zsh move
 autoload -U zmv
-alias mmv='noglob zmv -W'
+alias pmv='noglob zmv -W'
+alias pcp='noglob zmv -W -C'
 
 alias sl='sl'
 
