@@ -2,7 +2,6 @@
 # Really simple setup script for debian systems
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
-ARCH=$(dpkg --print-architecture)
 
 # oh-my-zsh
 if [ ! -e $HOME/.oh-my-zsh ]; then
@@ -14,12 +13,12 @@ sudo true
 
 $SCRIPT_DIR/link
 
+# apt install stuff
 sudo apt-get update
 sudo apt-get install -y fortunes cowsay xclip dos2unix zsh tmux tree vim git ruby
 
 # gem install shit we don't have in debians
-sudo gem install gist
-sudo gem install lolcat
+sudo gem install gist lolcat
 
 # gsettings
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
