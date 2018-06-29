@@ -13,7 +13,6 @@ source ~/.zplug/init.zsh
 # use the main oh my zsh stuff?
 zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh"
 zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/gitfast", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
 
 zplug "zsh-users/zsh-completions"
@@ -210,7 +209,6 @@ function unalias_git_mode()
     unalias rm
 }
 # toggle git mode or run a single command with git
-unalias g
 function g()
 {
     if [ "$#" -eq 0 ]; then
