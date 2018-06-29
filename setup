@@ -26,7 +26,6 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
   gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
   gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-  gsettings set org.gtk.Settings.Debug enable-inspector-keybinding true
 fi
 
 sudo chsh -s $(which zsh) $USER
