@@ -1,22 +1,15 @@
 ZSH_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.zshrc))
 
-# for oh-my-zsh
-ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
-DISABLE_AUTO_UPDATE=true
-DISABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
 # zplug
 source ~/.zplug/init.zsh
 
-# use the main oh my zsh stuff?
-zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh"
+# Selectively grab some oh-my-zsh stuff I don't want to maintain
+COMPLETION_WAITING_DOTS="true"
+zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
+
 zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
-
 zplug "zsh-users/zsh-completions"
-zplug "caarlos0/zsh-mkc"
 
 # needs to be before pure theme
 zplug "mafredri/zsh-async"
@@ -32,6 +25,62 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    # this is a good alias, it works by default just using $LSCOLORS
+    ls -G . &>/dev/null && alias ls='ls -G'
+
+    # only use coreutils ls if there is a dircolors customization present ($LS_COLORS or .dircolors file)
+    # otherwise, gls will use the default color scheme which is ugly af
+    [[ -n "$LS_COLORS" || -f "$HOME/.dircolors" ]] && gls --color -d . &>/dev/null && alias ls='gls --color=tty'
+else
+    # For GNU ls, we use the default ls color theme. They can later be overwritten by themes.
+    if [[ -z "$LS_COLORS" ]]; then
+      (( $+commands[dircolors] )) && eval "$(dircolors -b)"
+    fi
+
+    ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
+
+    # Take advantage of $LS_COLORS for completion as well.
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+fi
+
+# ls colors
+autoload -U colors && colors
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+setopt auto_cd
+setopt multios
+setopt prompt_subst
+
+[[ -n "$WINDOW" ]] && SCREEN_NO="%B$WINDOW%b " || SCREEN_NO=""
+
+alias grep="grep  --color=auto  --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
+
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+## jobs
+setopt long_list_jobs
+
+## pager
+export PAGER='less'
+export LESS='-R'
+
+## super user alias
+alias _='sudo'
+alias please='sudo'
+
+# only define LC_CTYPE if undefined
+if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
+    export LC_CTYPE=${LANG%%:*} # pick the first entry from LANG
+fi
+
+# recognize comments
+setopt interactivecomments
 
 # support 256 colors
 TERM=xterm-256color
@@ -135,6 +184,15 @@ function deb-extract() {
 
 function deb-rebuild() {
     dpkg -b $1 $2
+}
+
+mkc() {
+  mkdir -p "$1" && cd "$1" || return 1
+}
+
+_mkc() {
+  #compdef mkc
+  _files -W "$1" -/
 }
 
 alias c="command"
