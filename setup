@@ -3,23 +3,24 @@
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
 
+# apt install stuff
+sudo apt-get update
+sudo apt-get install -y fortunes cowsay xclip dos2unix zsh tmux tree vim git ruby
+# gem install shit we don't have in debians
+sudo gem install gist lolcat
+
 # fzf
 if [ ! -e $HOME/.fzf ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
 
-# Grab sudo rights
-sudo true
+# zplug
+if [ ! -e $HOME/.zplug ]; then
+  git clone --depth 1 https://github.com/zplug/zplug.git ~/.zplug
+fi
 
 $SCRIPT_DIR/link
-
-# apt install stuff
-sudo apt-get update
-sudo apt-get install -y fortunes cowsay xclip dos2unix zsh tmux tree vim git ruby
-
-# gem install shit we don't have in debians
-sudo gem install gist lolcat
 
 # gsettings
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
@@ -29,5 +30,4 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
 fi
 
 sudo chsh -s $(which zsh) $USER
-zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and should be all set in your
-new shell.'"
+zsh -c "source $HOME/.zshrc && zinstall && say 'DONE! Reboot and you should be all set.'"

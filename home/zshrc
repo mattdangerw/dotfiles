@@ -6,23 +6,15 @@ source ~/.zplug/init.zsh
 # Selectively grab some oh-my-zsh stuff I don't want to maintain
 COMPLETION_WAITING_DOTS="true"
 zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
-
 zplug "plugins/github", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
+
+# other libraries
 zplug "zsh-users/zsh-completions"
-
-# needs to be before pure theme
 zplug "mafredri/zsh-async"
-zplug "~/checkout/fzf-z", from:local
 
-zplug "~/checkout/pure", from:local, use:pure.zsh, as:theme
-
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+zplug "~/.zfunctions", from:local
+zplug "~/.zthemes", from:local, use:"pure.zsh", as:theme
 
 zplug load
 
@@ -163,8 +155,8 @@ alias shutdown='quote && read && shutdown -h now'
 alias reboot='shutdown -r now'
 alias logout='gnome-session-quit'
 
-alias zedit="${EDITOR:-vim} ~/.zshrc"
-alias zbundle="antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh"
+alias zedit="${EDITOR} ~/.zshrc"
+alias zinstall="zplug install"
 alias zup='source ~/.zshrc'
 
 alias which-package='dpkg-query -S'
