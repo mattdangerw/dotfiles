@@ -70,6 +70,7 @@ function toggle-git-mode()
     git $@
   fi
 }
+
 if [ $GIT_MODE ]; then
   alias-git-mode
 fi

@@ -28,7 +28,5 @@ for file in $(find .  -maxdepth 1 -type f -printf '%P\n'); do
 done
 # List nested directories explicitly, cause we may want to choose how to link
 # them. i.e. link entire diretory or individual files
-backup_and_link zfunctions
-backup_and_link zthemes
 backup_and_link local/share/fonts
 popd

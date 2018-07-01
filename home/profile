@@ -43,3 +43,6 @@ ANACONDA_DIR="$HOME/anaconda3/bin"
 if [ -d $ANACONDA_DIR ]; then
   export PATH="$PATH:$ANACONDA_DIR"
 fi
+if [[ ! "$PATH" == *~/.fzf/bin* ]]; then
+  export PATH="$PATH:$HOME/.fzf/bin"
+fi

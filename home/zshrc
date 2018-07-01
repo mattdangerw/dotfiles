@@ -35,9 +35,10 @@ setopt interactivecomments
 
 # support 256 colors
 TERM=xterm-256color
+
+# fzf config
 FZF_THEME="fg:-1,fg+:-1,bg:-1,bg+:-1,hl:13,hl+:13,marker:13,prompt:4,pointer:4,spinner:4,header:242,info:242,border:242"
 FZF_DEFAULT_OPTS="--height 40% --layout=reverse --prompt='? ' --color=${FZF_THEME}"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 autoload -U compinit && compinit
 
@@ -53,17 +54,17 @@ source ~/.zplug/init.zsh
 COMPLETION_WAITING_DOTS="true"
 zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
 zplug "plugins/github", from:oh-my-zsh
-
 zplug "plugins/z", from:oh-my-zsh
 
 # other libraries
 zplug "zsh-users/zsh-completions"
 zplug "mafredri/zsh-async"
 
-zplug "~/.zfunctions", from:local
-zplug "~/.zthemes", from:local, use:"pure.zsh", as:theme
-
 zplug load
+
+for file in $ZSH_SCRIPT_DIR/../zsh/*.zsh; do
+  source $file
+done
 
 # Functions
 # ==============================================================================
@@ -194,5 +195,5 @@ alias c='command'
 alias g='toggle-git-mode'
 if [ -z $ZSHRC_FIRST_INCLUDE ]; then
   export ZSHRC_FIRST_INCLUDE=true
-  g
+  toggle-git-mode
 fi
