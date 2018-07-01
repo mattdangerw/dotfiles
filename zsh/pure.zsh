@@ -176,15 +176,17 @@ prompt_pure_precmd() {
 	prompt_pure_check_cmd_exec_time
 	unset prompt_pure_cmd_timestamp
 
-	local cmd_stats="${prompt_pure_cmd_exec_time} ${status_code} ↵ "
-	local pad_length=$(($COLUMNS-${#cmd_stats}))
-	local pad=${(l:$pad_length:: :)}
-	if [[ $status_code == "0" ]]; then
-		cmd_stats="${pad}%F{242}${cmd_stats}%f"
-	else
-		cmd_stats="${pad}%F{red}${cmd_stats}%f"
+	if [[ -n $prompt_pure_last_prompt ]]; then
+		local cmd_stats="${prompt_pure_cmd_exec_time} ${status_code} ↵ "
+		local pad_length=$(($COLUMNS-${#cmd_stats}))
+		local pad=${(l:$pad_length:: :)}
+		if [[ $status_code == "0" ]]; then
+			cmd_stats="${pad}%F{242}${cmd_stats}%f"
+		else
+			cmd_stats="${pad}%F{red}${cmd_stats}%f"
+		fi
+		print -P $cmd_stats
 	fi
-	print -P $cmd_stats
 
 	# shows the full path in the title
 	prompt_pure_set_title 'expand-prompt' '%~'
