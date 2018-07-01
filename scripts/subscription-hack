@@ -1,6 +1,0 @@
-#!/usr/bin/bash -ex
-
-appid=$1
-./configure --prefix=$HOME/install APP_ID=${appid} --disable-content
-make clean
-make install

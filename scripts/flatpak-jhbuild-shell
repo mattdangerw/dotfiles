@@ -1,7 +1,0 @@
-#!/bin/bash -e
-
-# Pull up a jhbuild shell inside the flatpak chroot, requires animals.en installed
-
-SCRIPT_DIR=$(dirname $(readlink -f $0))
-
-$SCRIPT_DIR/flatpak-jhbuild-run com.endlessm.animals.en bash

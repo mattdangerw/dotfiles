@@ -1,9 +1,0 @@
-#!/bin/bash -ex
-
-mkdir buildroot
-sudo tar -C buildroot -xf /var/cache/eos-build/master.tar
-sudo cp /etc/apt/sources.list.d/obs-custom.list buildroot/etc/apt/sources.list.d
-sudo cp /etc/apt/preferences.d/obs-custom.pref buildroot/etc/apt/preferences.d
-sudo tar -C buildroot -V "$(date +%s)" -cf buildroot.tar .
-sudo mv -f buildroot.tar /var/cache/eos-build/master.tar
-sudo rm -rf buildroot

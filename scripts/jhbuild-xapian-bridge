@@ -1,7 +1,0 @@
-#!/bin/bash -ex
-
-sudo systemctl stop xapian-bridge.service
-sudo systemctl stop xapian-bridge.socket
-
-trap "sudo systemctl start xapian-bridge.socket" SIGHUP SIGINT SIGTERM
-jhbuild run xapian-bridge
