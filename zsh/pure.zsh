@@ -177,7 +177,7 @@ prompt_pure_precmd() {
 	unset prompt_pure_cmd_timestamp
 
 	if [[ -n $prompt_pure_last_prompt ]]; then
-		local cmd_stats="${prompt_pure_cmd_exec_time} ${status_code} ↵ "
+		local cmd_stats="${prompt_pure_cmd_exec_time} ${status_code} "
 		local pad_length=$(($COLUMNS-${#cmd_stats}))
 		local pad=${(l:$pad_length:: :)}
 		if [[ $status_code == "0" ]]; then
