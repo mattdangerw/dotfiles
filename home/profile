@@ -12,26 +12,34 @@ PROFILE_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.profile))
 export EDITOR="vim"
 export DEBFULLNAME="Matt Watson"
 export DEBEMAIL="mattdangerw@gmail.com"
+export PAGER="less"
+export LESS="-R"
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 if which code >/dev/null; then
-    export EDITOR="code -w"
+  export EDITOR="code -w"
+fi
+
+# only define LC_CTYPE if undefined
+if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
+  export LC_CTYPE=${LANG%%:*} # pick the first entry from LANG
 fi
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-      . "$HOME/.bashrc"
-    fi
+  # include .bashrc if it exists
+  if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+  fi
 fi
 
 if [ -f "$HOME/.secrets" ]; then
-    . "$HOME/.secrets"
+  . "$HOME/.secrets"
 fi
 
-PATH="$HOME/.yarn/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:/usr/games:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.local/bin:$(dirname $PROFILE_SCRIPT_DIR)/scripts:/usr/games:$PATH"
 # For AWS
 ANACONDA_DIR="$HOME/anaconda3/bin"
 if [ -d $ANACONDA_DIR ]; then
-    PATH="$PATH:$ANACONDA_DIR"
+  export PATH="$PATH:$ANACONDA_DIR"
 fi

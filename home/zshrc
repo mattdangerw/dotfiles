@@ -15,7 +15,6 @@ fi
 
 # ls colors
 autoload -U colors && colors
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 setopt auto_cd
 setopt multios
@@ -31,15 +30,6 @@ zle -N self-insert url-quote-magic
 
 ## jobs
 setopt long_list_jobs
-
-## pager
-export PAGER='less'
-export LESS='-R'
-
-# only define LC_CTYPE if undefined
-if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
-  export LC_CTYPE=${LANG%%:*} # pick the first entry from LANG
-fi
 
 # recognize comments
 setopt interactivecomments
@@ -64,6 +54,7 @@ source ~/.zplug/init.zsh
 COMPLETION_WAITING_DOTS="true"
 zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
 zplug "plugins/github", from:oh-my-zsh
+
 zplug "plugins/z", from:oh-my-zsh
 
 # other libraries
