@@ -200,6 +200,8 @@ fi
 
 alias c='command'
 
+# git mode
+alias g='toggle-git-mode'
 if [ -z $FIRST_INCLUDE ]; then
   export FIRST_INCLUDE=true
   g

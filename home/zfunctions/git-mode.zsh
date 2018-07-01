@@ -1,4 +1,4 @@
-function rm_git_mode()
+function rm-git-mode()
 {
   if git rev-parse --git-dir > /dev/null 2>&1; then
     local output
@@ -12,7 +12,7 @@ function rm_git_mode()
   command rm "$@"
 }
 
-function mv_git_mode()
+function mv-git-mode()
 {
   if git rev-parse --git-dir > /dev/null 2>&1; then
     local output
@@ -26,7 +26,7 @@ function mv_git_mode()
   command mv "$@"
 }
 
-function alias_git_mode()
+function alias-git-mode()
 {
   local aliases="$(git config --get-regexp '^alias.' | sed s/alias.// | awk '{print $1}')"
   local git_builtins="add apply blame branch checkout cherry cherry-pick clean \
@@ -40,11 +40,11 @@ function alias_git_mode()
   for word in $_git_mode_commands; do
     alias "$word"="git $word"
   done
-  alias mv="mv_git_mode"
-  alias rm="rm_git_mode"
+  alias mv="mv-git-mode"
+  alias rm="rm-git-mode"
 }
 
-function unalias_git_mode()
+function unalias-git-mode()
 {
   for word in $_git_mode_commands; do
     unalias "$word"
@@ -54,20 +54,20 @@ function unalias_git_mode()
 }
 
 # toggle git mode or run a single command with git
-function g()
+function toggle-git-mode()
 {
   if [ "$#" -eq 0 ]; then
     if [ $GIT_MODE ]; then
       unset GIT_MODE
-      unalias_git_mode
+      unalias-git-mode
     else
       export GIT_MODE=true
-      alias_git_mode
+      alias-git-mode
     fi
   else
     git $@
   fi
 }
 if [ $GIT_MODE ]; then
-  alias_git_mode
+  alias-git-mode
 fi
