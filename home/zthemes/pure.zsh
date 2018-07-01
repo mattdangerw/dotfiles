@@ -127,8 +127,8 @@ prompt_pure_preprompt_render() {
 	if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
 		preprompt_parts+=('%F{14}‹ssh›%f')
 	fi
-  if [[ -n $GIT_MODE ]]; then
-		preprompt_parts+=('%F{13}‹gm›%f')
+  if [[ -n $VCS_MODE_TOKEN ]]; then
+		preprompt_parts+=("%F{13}‹${VCS_MODE_TOKEN}›%f")
 	fi
 
 	# Add git branch and dirty status info.

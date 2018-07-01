@@ -59,9 +59,11 @@ function toggle-git-mode()
   if [ "$#" -eq 0 ]; then
     if [ $GIT_MODE ]; then
       unset GIT_MODE
+      unset VCS_MODE_TOKEN
       unalias-git-mode
     else
       export GIT_MODE=true
+      export VCS_MODE_TOKEN='gm'
       alias-git-mode
     fi
   else
