@@ -3,6 +3,8 @@
 # Based on https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
 # (MIT licensed, as of 2016-05-05).
 
+FZFZ_EXTRA_DIRS="~ ~/checkout"
+
 if [[ $OSTYPE == darwin* ]]; then
     REVERSER='tail -r'
 else
@@ -36,7 +38,7 @@ __fzfz() {
         EXTRA_DIRS="{ true }"
     fi
 
-    FZFZ_SUBDIR_LIMIT=${FZFZ_SUBDIR_LIMIT:=50}
+    FZFZ_SUBDIR_LIMIT=0
 
     RECENTLY_USED_DIRS="{ z -l | $REVERSER | sed 's/^[[:digit:].]*[[:space:]]*//' }"
 
