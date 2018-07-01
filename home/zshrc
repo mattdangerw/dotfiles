@@ -3,6 +3,7 @@ ZSH_SCRIPT_DIR=$(dirname $(readlink -f ~/.zshrc))
 # Options and configs
 # ==============================================================================
 
+# LS colors
 if [[ "$OSTYPE" == darwin* ]]; then
   # this is a good alias, it works by default just using $LSCOLORS
   ls -G . &>/dev/null && alias ls='ls -G'
@@ -12,8 +13,6 @@ else
   # Take advantage of $LS_COLORS for completion as well.
   zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 fi
-
-# ls colors
 autoload -U colors && colors
 
 setopt auto_cd
@@ -193,7 +192,7 @@ alias c='command'
 
 # git mode
 alias g='toggle-git-mode'
-if [ -z $FIRST_INCLUDE ]; then
-  export FIRST_INCLUDE=true
+if [ -z $ZSHRC_FIRST_INCLUDE ]; then
+  export ZSHRC_FIRST_INCLUDE=true
   g
 fi
