@@ -1,40 +1,16 @@
-ZSH_SCRIPT_DIR=$(dirname $(readlink -f ${HOME}/.zshrc))
+ZSH_SCRIPT_DIR=$(dirname $(readlink -f ~/.zshrc))
 
-# zplug
-source ~/.zplug/init.zsh
-
-# Selectively grab some oh-my-zsh stuff I don't want to maintain
-COMPLETION_WAITING_DOTS="true"
-zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-
-# other libraries
-zplug "zsh-users/zsh-completions"
-zplug "mafredri/zsh-async"
-
-zplug "~/.zfunctions", from:local
-zplug "~/.zthemes", from:local, use:"pure.zsh", as:theme
-
-zplug load
+# Options and configs
+# ==============================================================================
 
 if [[ "$OSTYPE" == darwin* ]]; then
-    # this is a good alias, it works by default just using $LSCOLORS
-    ls -G . &>/dev/null && alias ls='ls -G'
-
-    # only use coreutils ls if there is a dircolors customization present ($LS_COLORS or .dircolors file)
-    # otherwise, gls will use the default color scheme which is ugly af
-    [[ -n "$LS_COLORS" || -f "$HOME/.dircolors" ]] && gls --color -d . &>/dev/null && alias ls='gls --color=tty'
+  # this is a good alias, it works by default just using $LSCOLORS
+  ls -G . &>/dev/null && alias ls='ls -G'
 else
-    # For GNU ls, we use the default ls color theme. They can later be overwritten by themes.
-    if [[ -z "$LS_COLORS" ]]; then
-      (( $+commands[dircolors] )) && eval "$(dircolors -b)"
-    fi
+  ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
 
-    ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
-
-    # Take advantage of $LS_COLORS for completion as well.
-    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+  # Take advantage of $LS_COLORS for completion as well.
+  zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 fi
 
 # ls colors
@@ -46,8 +22,6 @@ setopt multios
 setopt prompt_subst
 
 [[ -n "$WINDOW" ]] && SCREEN_NO="%B$WINDOW%b " || SCREEN_NO=""
-
-alias grep="grep  --color=auto  --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
 
 autoload -Uz bracketed-paste-magic
 zle -N bracketed-paste bracketed-paste-magic
@@ -61,10 +35,6 @@ setopt long_list_jobs
 ## pager
 export PAGER='less'
 export LESS='-R'
-
-## super user alias
-alias _='sudo'
-alias please='sudo'
 
 # only define LC_CTYPE if undefined
 if [[ -z "$LC_CTYPE" && -z "$LC_ALL" ]]; then
@@ -86,7 +56,74 @@ FZFZ_EXTRA_DIRS="~ ~/checkout"
 autoload -U compinit && compinit
 
 # Setup path properly over ssh
-source $HOME/.profile
+source ~/.profile
+
+# Plugins
+# ==============================================================================
+
+source ~/.zplug/init.zsh
+
+# Selectively grab some oh-my-zsh stuff I don't want to maintain
+COMPLETION_WAITING_DOTS="true"
+zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
+zplug "plugins/github", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+
+# other libraries
+zplug "zsh-users/zsh-completions"
+zplug "mafredri/zsh-async"
+
+zplug "~/.zfunctions", from:local
+zplug "~/.zthemes", from:local, use:"pure.zsh", as:theme
+
+zplug load
+
+# Functions
+# ==============================================================================
+
+function say() {
+  if which cowsay >/dev/null && which lolcat >/dev/null; then
+    cowfile=`ls /usr/share/cowsay/cows | sort -R | tail -1`
+    cowsay -f $cowfile "$@" | lolcat
+  else
+    echo $@
+  fi
+}
+
+function calc() {
+  python -c "print $@"
+}
+
+function deb-extract() {
+  mkdir -p $2
+  dpkg-deb -x $1 $2
+  dpkg-deb --control $1 $2/DEBIAN
+}
+
+function deb-rebuild() {
+  dpkg -b $1 $2
+}
+
+mkc() {
+  mkdir -p "$1" && cd "$1" || return 1
+}
+
+_mkc() {
+  #compdef mkc
+  _files -W "$1" -/
+}
+
+# ls after every cd
+function chpwd() {
+  emulate -LR zsh
+  ls
+}
+
+# Aliases
+# ==============================================================================
+
+## super user alias
+alias _='sudo'
 
 # resume downloads if dc'd
 alias wget='wget -c'
@@ -95,7 +132,7 @@ alias files='xdg-open .'
 alias term='gnome-terminal'
 alias gdbr='gdb -q -ex r'
 alias tree='tree -C'
-alias woman=man
+alias woman='man'
 
 # some more ls aliases
 alias l='ls'
@@ -109,19 +146,6 @@ alias pmv='noglob zmv -W'
 alias pcp='noglob zmv -W -C'
 
 alias sl='sl'
-
-# sudo uses aliases
-# alias sudo='sudo '
-
-function say() {
-    if which cowsay >/dev/null && which lolcat >/dev/null; then
-        cowfile=`ls /usr/share/cowsay/cows | sort -R | tail -1`
-        cowsay -f $cowfile "$@" | lolcat
-        # cowsay -f head-in -e "><" "$@" | cowthink -n -f dragon-and-cow -e "OO" | cowthink -n -s -f bong
-    else
-        echo $@
-    fi
-}
 
 alias quote='say `fortune`'
 alias bored='while :; do quote && sleep 4; done'
@@ -156,128 +180,30 @@ alias reboot='shutdown -r now'
 alias logout='gnome-session-quit'
 
 alias zedit="${EDITOR} ~/.zshrc"
-alias zinstall="zplug install"
+alias zinstall='zplug install'
 alias zup='source ~/.zshrc'
 
 alias which-package='dpkg-query -S'
 
-function calc() {
-    python -c "print $@"
-}
-
 # debian
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
-function deb-extract() {
-    mkdir -p $2
-    dpkg-deb -x $1 $2
-    dpkg-deb --control $1 $2/DEBIAN
-}
-
-function deb-rebuild() {
-    dpkg -b $1 $2
-}
-
-mkc() {
-  mkdir -p "$1" && cd "$1" || return 1
-}
-
-_mkc() {
-  #compdef mkc
-  _files -W "$1" -/
-}
-
-alias c="command"
-
+# grep
+alias grep="grep  --color=auto  --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
 # pipe to grep
-alias -g '@'="| command grep --color=auto"
-alias dgrep="dpkg -l | command grep --color=auto"
+alias -g '@'='| command grep --color=auto'
+alias dgrep='dpkg -l | command grep --color=auto'
 
 # add to clipboard
-alias clip="xclip -sel clip"
-
-# ls after every cd
-function chpwd() {
-    emulate -LR zsh
-    ls
-}
+alias clip='xclip -sel clip'
 
 if which hub &>/dev/null; then
   alias git=hub
 fi
 
-# Git mode! work in progress
-function rm_git_mode()
-{
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        local output
-        output=`git rm $@ 2>&1`
-        local ret="$?"
-        if [ $ret -ne 128 ]; then
-            echo $output
-            return $ret
-        fi
-    fi
-    command rm "$@"
-}
-function mv_git_mode()
-{
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        local output
-        output=`git mv $@ 2>&1`
-        local ret="$?"
-        if [ $ret -ne 128 ]; then
-            echo $output
-            return $ret
-        fi
-    fi
-    command mv "$@"
-}
-function alias_git_mode()
-{
-    local aliases="$(git config --get-regexp '^alias.' | sed s/alias.// | awk '{print $1}')"
-    local git_builtins="add apply blame branch checkout cherry cherry-pick clean \
-        clone commit config describe diff fetch format-patch gc grep help init log merge \
-        prune pull push rebase reflog remote reset revert show stash status tag"
-    _git_mode_commands=(${(ps:\n:)${aliases}} ${(ps: :)${git_builtins}})
-    if which hub >/dev/null; then
-        local hub_builtins="create browse compare fork pull-request ci-status"
-        _git_mode_commands+=(${(ps: :)${hub_builtins}})
-    fi
-    for word in $_git_mode_commands; do
-        alias "$word"="git $word"
-    done
-    alias mv="mv_git_mode"
-    alias rm="rm_git_mode"
-}
-function unalias_git_mode()
-{
-    for word in $_git_mode_commands; do
-        unalias "$word"
-    done
-    unalias mv
-    unalias rm
-}
-# toggle git mode or run a single command with git
-function g()
-{
-    if [ "$#" -eq 0 ]; then
-        if [ $GIT_MODE ]; then
-            unset GIT_MODE
-            unalias_git_mode
-        else
-            export GIT_MODE=true
-            alias_git_mode
-        fi
-    else
-        git $@
-    fi
-}
-if [ $GIT_MODE ]; then
-    alias_git_mode
-fi
+alias c='command'
 
 if [ -z $FIRST_INCLUDE ]; then
-    export FIRST_INCLUDE=true
-    g
+  export FIRST_INCLUDE=true
+  g
 fi
