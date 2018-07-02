@@ -103,35 +103,25 @@ fzf-history-widget() {
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
-# fkill
+# Git magic
 # ==============================================================================
 
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
 }
 
-# Git branches
-# ==============================================================================
-
-__fbranch() {
+fbranch() {
+  is_in_git_repo || return
   setopt localoptions pipefail 2> /dev/null
   local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)') &&
-  branch=$(echo "$branches" | fzf +m)
-  local ret=$?
-  branch=$(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-  echo -n "$branch"
-  return $ret
+  git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
+  fzf --ansi --no-sort --reverse \
+    --preview 'echo {} | awk "{print $1}" | sed "s/.* //" | xargs git graph | head -'$LINES |
+  awk '{print $1}' | sed "s/.* //"
 }
 
 fzf-git-branch() {
-  local branch="$(__fbranch)"
+  local branch="$(fbranch)"
   local ret=$?
   if [[ -n "$branch" ]]; then
     if [[ -z "$LBUFFER" ]]; then
@@ -150,3 +140,52 @@ fzf-git-branch() {
 }
 zle     -N   fzf-git-branch
 bindkey '^B' fzf-git-branch
+
+fhash() {
+  is_in_git_repo || return
+  git graph |
+  fzf --ansi --height 100% --no-sort --reverse \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  command grep -o "[a-f0-9]\{7,\}"
+}
+
+fzf-git-history() {
+  local hash="$(fhash)"
+  local ret=$?
+  if [[ -n "$hash" ]]; then
+    if [[ -z "$LBUFFER" ]]; then
+      if [ $GIT_MODE ]; then
+        LBUFFER="checkout ${hash}"
+      else
+        LBUFFER="git checkout ${hash}"
+      fi
+    else
+      LBUFFER="${LBUFFER}${hash}"
+    fi
+  fi
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N   fzf-git-history
+bindkey '^H' fzf-git-history
+
+# ssh
+# ==============================================================================
+
+fssh() {
+  echo "hi"
+}
+
+# fkill
+# ==============================================================================
+
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
