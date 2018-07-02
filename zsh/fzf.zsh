@@ -143,11 +143,12 @@ bindkey '^B' fzf-git-branch
 
 fhash() {
   is_in_git_repo || return
-  git graph |
+  git graph $1 |
   fzf --ansi --height 100% --no-sort --reverse \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
   command grep -o "[a-f0-9]\{7,\}"
 }
+alias flog='fhash'
 
 fzf-git-history() {
   local hash="$(fhash)"
