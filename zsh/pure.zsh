@@ -134,7 +134,7 @@ prompt_pure_preprompt_render() {
 	# Add git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}${prompt_pure_vcs_info[branch]}${prompt_pure_git_arrows}%f')
+		preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_arrows}${prompt_pure_vcs_info[branch]}${prompt_pure_git_dirty}%f')
 	fi
 
 	local cleaned_ps1=$PROMPT
