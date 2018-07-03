@@ -2,8 +2,9 @@
 # ==============================================================================
 
 [[ $- == *i* ]] && source ~/.fzf/shell/completion.zsh 2> /dev/null
+
 FZF_THEME="fg:-1,fg+:-1,bg:-1,bg+:-1,hl:13,hl+:13,marker:13,prompt:4,pointer:4,spinner:4,header:242,info:242,border:242"
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --prompt='? ' --color=${FZF_THEME}"
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --prompt='? ' --tabstop=2 --bind='ctrl-p:toggle-preview' --color=${FZF_THEME}"
 
 # Directory switching (fzfz)
 # ==============================================================================
@@ -170,13 +171,6 @@ fzf-git-history() {
 }
 zle     -N   fzf-git-history
 bindkey '^H' fzf-git-history
-
-# ssh
-# ==============================================================================
-
-fssh() {
-  echo "hi"
-}
 
 # fkill
 # ==============================================================================
