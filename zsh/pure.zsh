@@ -497,14 +497,12 @@ prompt_pure_state_setup() {
 }
 
 prompt_pure_setup() {
-	# Prevent percentage showing up if output doesn't end with a newline.
-	export PROMPT_EOL_MARK=''
-
 	prompt_opts=(subst percent)
 
 	# borrowed from promptinit, sets the prompt options in case pure was not
 	# initialized via promptinit.
 	setopt noprompt{bang,cr,percent,subst} "prompt${^prompt_opts[@]}"
+	setopt PROMPT_CR PROMPT_SP
 
 	if [[ -z $prompt_newline ]]; then
 		# This variable needs to be set, usually set by promptinit.
