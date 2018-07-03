@@ -31,7 +31,7 @@
   fix = commit --amend --no-edit
   wip = !bash -c 'git commit -m \"wip $1\"' -
   split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
-  graph = log --date=short --format='%C(green)%cd %C(auto)%h%d %s %C(blue)(%ae)' --graph --color=always
+  graph = log --date=short --format='%C(green)%cd %C(auto)%h%d %s %C(242)(%ae)' --graph --color=always
   publish = push --set-upstream origin HEAD
   pub = !git publish
   bomb = clean -Xdf
