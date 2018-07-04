@@ -191,8 +191,8 @@ fi
 alias c='command'
 
 # git mode
-alias g='toggle-git-mode'
+alias g='git-mode-toggle'
 if [ -z $ZSHRC_FIRST_INCLUDE ]; then
   export ZSHRC_FIRST_INCLUDE=true
-  toggle-git-mode
+  git-mode-toggle
 fi
