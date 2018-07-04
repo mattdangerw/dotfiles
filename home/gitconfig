@@ -3,11 +3,13 @@
 	email = mattdangerw@gmail.com
 [core]
 	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=4 -R
 [color]
 	status = auto
 	commit = auto
 	diff = auto
 	branch = auto
+	ui = true
 [credential]
 	helper = cache --timeout=28800
 [push]
@@ -40,3 +42,10 @@
   patch = !git format-patch -o ~/checkout/snips
   stage-deletes = !git rm $(git ls-files --deleted)
   stage-all = !git rm $(git ls-files --deleted) && git add .
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	whitespace = red reverse
+[color "diff-highlight"]
+	oldHighlight = red bold
+	newHighlight = green bold

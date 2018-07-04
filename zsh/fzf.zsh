@@ -146,7 +146,7 @@ fhash() {
   is_in_git_repo || return
   git graph $1 |
   fzf --ansi --height 100% --no-sort --reverse \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | diff-so-fancy | head -'$LINES |
   command grep -o "[a-f0-9]\{7,\}"
 }
 alias flog='fhash'
