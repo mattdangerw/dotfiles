@@ -168,7 +168,7 @@ alias reboot='shutdown -r now'
 alias logout='gnome-session-quit'
 
 alias zedit="${EDITOR} ~/.zshrc"
-alias zinstall='zplug install'
+alias zinstall='zup && zplug install'
 alias zup='source ~/.zshrc'
 
 alias which-package='dpkg-query -S'
