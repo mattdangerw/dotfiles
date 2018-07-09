@@ -25,7 +25,7 @@ __fzfz() {
 
   RECENTLY_USED_DIRS="{ z -l | $REVERSER | sed 's/^[[:digit:].]*[[:space:]]*//' }"
 
-  FZF_COMMAND="fzf --tiebreak=end,index -m"
+  FZF_COMMAND="fzf --bind='ctrl-g:abort' --tiebreak=end,index -m"
 
   local COMMAND="{ $RECENTLY_USED_DIRS ; $EXTRA_DIRS; } | $FZFZ_UNIQUIFIER | $FZF_COMMAND"
 
@@ -55,7 +55,7 @@ __fsel() {
     -o -type d -print \
     -o -type l -print 2> /dev/null | cut -b3-"}"
   setopt localoptions pipefail 2> /dev/null
-  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" $(__fzfcmd) -m "$@" | while read item; do
+  eval "$cmd" | FZF_DEFAULT_OPTS="--bind='ctrl-f:abort' --height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" $(__fzfcmd) -m "$@" | while read item; do
     echo -n "${(q)item} "
   done
   local ret=$?
@@ -89,7 +89,7 @@ fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
   selected=( $(fc -rl 1 |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+    FZF_DEFAULT_OPTS="--bind='ctrl-r:abort' --height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
@@ -116,8 +116,8 @@ fbranch() {
   setopt localoptions pipefail 2> /dev/null
   local branches branch
   git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
-  fzf --ansi --no-sort --reverse \
-    --preview 'echo {} | awk "{print $1}" | sed "s/.* //" | xargs git graph | head -'$LINES |
+  fzf --bind='ctrl-b:abort' --ansi --no-sort --reverse \
+    --preview 'echo {} | awk "{print $1}" | sed "s/.* //" | xargs git graph | head -c 2M' |
   awk '{print $1}' | sed "s/.* //"
 }
 
@@ -144,9 +144,9 @@ bindkey '^B' fzf-git-branch
 
 fhash() {
   is_in_git_repo || return
-  git graph $1 |
-  fzf --ansi --height 100% --no-sort --reverse \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | diff-so-fancy | head -'$LINES |
+  git log --date=short --format='%C(green)%cd %C(auto)%h%d %s %C(242)(%ae)' --color=always $1 |
+  fzf --bind='ctrl-h:abort' --ansi --height 100% --no-sort --reverse \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | diff-so-fancy | head -c 2M' |
   command grep -o "[a-f0-9]\{7,\}"
 }
 alias flog='fhash'
@@ -157,9 +157,9 @@ fzf-git-history() {
   if [[ -n "$hash" ]]; then
     if [[ -z "$LBUFFER" ]]; then
       if [ $GIT_MODE ]; then
-        LBUFFER="checkout ${hash}"
+        LBUFFER="show ${hash}"
       else
-        LBUFFER="git checkout ${hash}"
+        LBUFFER="git show ${hash}"
       fi
     else
       LBUFFER="${LBUFFER}${hash}"
