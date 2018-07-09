@@ -58,7 +58,7 @@ zplug "plugins/z", from:oh-my-zsh
 # other libraries
 zplug "zsh-users/zsh-completions"
 zplug "mafredri/zsh-async"
-zplug "zdharma/zsh-diff-so-fancy", as:command, use:"bin/{git-dsf,diff-so-fancy}"
+zplug "mattdangerw/diff-so-fancy", as:command, use:"{diff-so-fancy,diff-highlight}"
 
 zplug load
 

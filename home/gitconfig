@@ -49,3 +49,5 @@
 [color "diff-highlight"]
 	oldHighlight = red bold
 	newHighlight = green bold
+[interactive]
+  diffFilter = "diff-highlight"
