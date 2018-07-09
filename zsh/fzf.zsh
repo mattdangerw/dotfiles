@@ -144,7 +144,7 @@ bindkey '^B' fzf-git-branch
 
 fhash() {
   is_in_git_repo || return
-  git log --date=short --format='%C(green)%cd %C(auto)%h%d %s %C(242)(%ae)' --color=always $1 |
+  git oneline $1 |
   fzf --bind='ctrl-h:abort' --ansi --height 100% --no-sort --reverse --preview-window=wrap \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | diff-so-fancy | head -c 2M' |
   command grep -o "[a-f0-9]\{7,\}"

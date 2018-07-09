@@ -33,7 +33,8 @@
 	fix = commit --amend --no-edit
 	wip = !bash -c 'git commit -m \"wip $1\"' -
 	split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
-	graph = log --date=short --format='%C(green)%cd %C(auto)%h%d %s %C(242)(%ae)' --graph --color=always
+	oneline = log --date=short --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always
+	graph = !git oneline --graph
 	publish = push --set-upstream origin HEAD
 	pub = !git publish
 	bomb = clean -Xdf
@@ -43,8 +44,8 @@
 	stage-deletes = !git rm $(git ls-files --deleted)
 	stage-all = !git rm $(git ls-files --deleted) && git add .
 [color "diff"]
-	meta = yellow
-	frag = magenta bold
+	meta = magenta bold
+	frag = blue bold
 	whitespace = red reverse
 [color "diff-highlight"]
 	oldHighlight = red bold
