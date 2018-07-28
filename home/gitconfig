@@ -33,7 +33,7 @@
 	fix = commit --amend --no-edit
 	wip = !bash -c 'git commit -m \"wip $1\"' -
 	split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
-	oneline = log --date=short --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always
+	oneline = log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always
 	graph = !git oneline --graph
 	publish = push --set-upstream origin HEAD
 	pub = !git publish
@@ -47,8 +47,12 @@
 	meta = magenta bold
 	frag = blue bold
 	whitespace = red reverse
+	old = red
+	new = green
 [color "diff-highlight"]
+	oldNormal = red
 	oldHighlight = red bold
+	newNormal = green
 	newHighlight = green bold
 [interactive]
 	diffFilter = "diff-highlight"
