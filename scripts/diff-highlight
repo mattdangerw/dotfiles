@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+
+use File::Spec;                                             # For catdir
+use File::Basename;                                         # For dirname
+use Cwd qw(abs_path);                                       # For realpath()
+use lib dirname(abs_path(File::Spec->catdir($0))) . "/lib"; # Add the local lib/ to @INC
+use DiffHighlight;
+
+# Some scripts may not realize that SIGPIPE is being ignored when launching the
+# pager--for instance scripts written in Python.
+$SIG{PIPE} = 'DEFAULT';
+
+DiffHighlight::highlight_stdin();
+exit 0;

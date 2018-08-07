@@ -47,19 +47,8 @@ source ~/.profile
 # Plugins
 # ==============================================================================
 
-source ~/.zplug/init.zsh
-
 # Selectively grab some oh-my-zsh stuff I don't want to maintain
 COMPLETION_WAITING_DOTS="true"
-zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-
-# other libraries
-zplug "mafredri/zsh-async"
-zplug "mattdangerw/diff-so-fancy", as:command, use:"{diff-so-fancy,diff-highlight}"
-
-zplug load
 
 for file in $ZSH_SCRIPT_DIR/../zsh/*.zsh; do
   source $file
