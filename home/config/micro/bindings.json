@@ -1,0 +1,9 @@
+{
+    "CtrlW": "Quit",
+    "CtrlD": "SpawnMultiCursor",
+    "Escape": "RemoveAllMultiCursors",
+    "CtrlLeft": "WordLeft",
+    "CtrlRight": "WordRight",
+    "ShiftCtrlLeft": "SelectWordLeft",
+    "ShiftCtrlRight": "SelectWordRight",
+}

@@ -29,4 +29,6 @@ done
 # List nested directories explicitly, cause we may want to choose how to link
 # them. i.e. link entire diretory or individual files
 backup_and_link local/share/fonts
+backup_and_link config/micro/bindings.json
+backup_and_link config/micro/settings.json
 popd
