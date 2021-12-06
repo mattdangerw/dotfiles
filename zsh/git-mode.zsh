@@ -35,7 +35,7 @@ function git-mode-alias()
 function git-mode-alias-all()
 {
   git-mode-unalias-all
-  for cmd in $(git help -a | grep '^  [a-z]'); do
+  for cmd in $(git --list-cmds=main); do
     alias=$cmd
     if which $alias >/dev/null; then
       # avoid collisions in builtins and unix commands by prefixing with "g"
@@ -48,7 +48,7 @@ function git-mode-alias-all()
     fi
     git-mode-alias "$alias" "git $cmd"
   done
-  for cmd in $(git config --get-regexp '^alias.' | sed s/alias.// | awk '{print $1}'); do
+  for cmd in $(git --list-cmds=alias); do
     # don't avoid collisions with aliases, we control these and can choose names
     # as we please
     git-mode-alias "$cmd" "git $cmd"
