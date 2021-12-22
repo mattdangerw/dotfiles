@@ -36,7 +36,7 @@ fi
 
 # gsettings
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
-  gsettings set org.gnome.desktop.background picture-uri "file://${SCRIPT_DIR}/background.jpg"
+  gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/checkout/dotfiles/background.jpg"
   gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi

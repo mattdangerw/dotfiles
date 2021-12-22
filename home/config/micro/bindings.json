@@ -1,9 +1,11 @@
 {
-    "CtrlW": "Quit",
+    "Alt-/": "lua:comment.comment",
     "CtrlD": "SpawnMultiCursor",
-    "Escape": "RemoveAllMultiCursors",
     "CtrlLeft": "WordLeft",
     "CtrlRight": "WordRight",
+    "CtrlUnderscore": "lua:comment.comment",
+    "CtrlW": "Quit",
+    "Escape": "RemoveAllMultiCursors",
     "ShiftCtrlLeft": "SelectWordLeft",
     "ShiftCtrlRight": "SelectWordRight"
 }

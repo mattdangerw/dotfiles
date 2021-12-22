@@ -38,8 +38,10 @@
 	new = green
 [color "diff-highlight"]
 	oldNormal = red
-	oldHighlight = red bold
+	oldHighlight = 9 bold
 	newNormal = green
-	newHighlight = green bold
+	newHighlight = 10 bold
 [interactive]
 	diffFilter = "diff-so-fancy --patch"
+[diff-so-fancy]
+	rulerWidth = 47

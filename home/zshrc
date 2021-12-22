@@ -138,6 +138,7 @@ alias clip='xclip -sel clip'
 
 # Direct alias some git commands.
 alias checkout='git checkout'
+alias add='git add'
 alias commit='git commit'
 alias branch='git branch'
 alias split='git split'
