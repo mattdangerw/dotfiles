@@ -3,7 +3,7 @@
 	email = mattdangerw@gmail.com
 [core]
 	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -R
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
 	status = auto
 	commit = auto
@@ -17,30 +17,17 @@
 [bz]
 	browser = google-chrome
 [alias]
-	s = status
-	d = diff -M
-	dw = diff -M --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
-	dm = !git d master
-	du = !git fetch && git d @{upstream}
-	br = branch
-	re = rebase
-	ri = rebase -i
-	rim = rebase -i master
-	crp = cherry-pick
-	ch = checkout
-	co = commit
+	diff-words = diff -M --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'
+	split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
 	edit = commit --amend
 	fix = commit --amend --no-edit
 	wip = !bash -c 'git commit -m \"wip $1\"' -
 	split = !bash -c 'git reset HEAD^ && git add -p && git commit -c ORIG_HEAD'
 	oneline = log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always
-	graph = !git oneline --graph
+	graph = log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always --graph
 	publish = push --set-upstream origin HEAD
-	pub = !git publish
 	bomb = clean -Xdf
 	nuke = clean -xdf
-	reup = !git fetch --all && git reset --hard @{upstream}
-	patch = !git format-patch -o ~/checkout/snips
 	stage-deletes = !git rm $(git ls-files --deleted)
 	stage-all = !git rm $(git ls-files --deleted) && git add .
 [color "diff"]
@@ -55,4 +42,4 @@
 	newNormal = green
 	newHighlight = green bold
 [interactive]
-	diffFilter = "diff-highlight"
+	diffFilter = "diff-so-fancy --patch"

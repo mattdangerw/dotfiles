@@ -1,42 +1,12 @@
-ZSH_SCRIPT_DIR=$(dirname $(readlink -f ~/.zshrc))
-
-# Options and configs
+# Libraries and configuration.
 # ==============================================================================
 
-# LS colors
-if [[ "$OSTYPE" == darwin* ]]; then
-  # this is a good alias, it works by default just using $LSCOLORS
-  ls -G . &>/dev/null && alias ls='ls -G'
-else
-  ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
-
-  # Take advantage of $LS_COLORS for completion as well.
-  zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-fi
-autoload -U colors && colors
-
-setopt auto_cd
-setopt multios
-setopt prompt_subst
-
-[[ -n "$WINDOW" ]] && SCREEN_NO="%B$WINDOW%b " || SCREEN_NO=""
-
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
-
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-
-## jobs
-setopt long_list_jobs
-
-# recognize comments
-setopt interactivecomments
-
-# support 256 colors
-TERM=xterm-256color
-
-autoload -U compinit && compinit
+# Oh my zsh.
+COMPLETION_WAITING_DOTS="true"
+plugins=(z)
+ZSH_THEME="powerlevel10k/powerlevel10k"
+zstyle ':omz:update' mode disabled 
+source ~/.oh-my-zsh/oh-my-zsh.sh
 
 # ignore all dups in history
 setopt hist_ignore_all_dups
@@ -44,29 +14,11 @@ setopt hist_ignore_all_dups
 # Setup path properly over ssh
 source ~/.profile
 
-# Plugins
-# ==============================================================================
-
-source ~/.zplug/init.zsh
-
-# Selectively grab some oh-my-zsh stuff I don't want to maintain
-COMPLETION_WAITING_DOTS="true"
-zplug "robbyrussell/oh-my-zsh", use:"lib/{completion,history,key-bindings}.zsh"
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-
-# other libraries
-zplug "zsh-users/zsh-completions"
-zplug "mafredri/zsh-async"
-zplug "mattdangerw/diff-so-fancy", as:command, use:"{diff-so-fancy,diff-highlight}"
-
-zplug load
-
-for file in $ZSH_SCRIPT_DIR/../zsh/*.zsh; do
+for file in $(dirname $(readlink -f ~/.zshrc))/../zsh/*.zsh; do
   source $file
 done
 
-# Functions
+# Functions.
 # ==============================================================================
 
 function say() {
@@ -107,20 +59,31 @@ function chpwd() {
   ls
 }
 
-# Aliases
+# Aliases.
 # ==============================================================================
 
 ## super user alias
 alias _='sudo'
 
-# resume downloads if dc'd
-alias wget='wget -c'
+alias e="${EDITOR}"
+alias c='command'
 alias chrome='google-chrome'
 alias files='xdg-open .'
 alias term='gnome-terminal'
 alias gdbr='gdb -q -ex r'
 alias tree='tree -C'
 alias woman='man'
+alias sl='sl'
+alias size='command du -sh'
+alias count='wc -l'
+alias which-package='dpkg-query -S'
+alias shutdown='shutdown -h now'
+alias reboot='shutdown -r now'
+alias logout='gnome-session-quit'
+alias python=python3
+
+# resume downloads if dc'd
+alias wget='wget -c'
 
 # some more ls aliases
 alias l='ls'
@@ -133,26 +96,20 @@ autoload -U zmv
 alias pmv='noglob zmv -W'
 alias pcp='noglob zmv -W -C'
 
-alias sl='sl'
-
+# import stuff
 alias quote='say `fortune`'
-alias bored='while :; do quote && sleep 4; done'
-alias lol='say lol'
-alias yo='say yo-yo'
+alias lol='say hehe'
+alias yo='say oy'
 alias hey='say oh hai'
 alias fart='say pffttbbttbt'
 
-# don't type this training
-alias npm='say NoOOoOO npm'
-alias subl='say NoOOoOO subl'
-alias atom='say NoOOoOO atom'
-
-# apt crap
+# apt/debian
 alias install='sudo apt install'
 alias remove='sudo apt remove'
 alias update='sudo apt update'
 alias upgrade='sudo apt update && sudo apt dist-upgrade'
 alias search='apt-cache search'
+alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
 # more dots
 alias ..='cd ..'
@@ -160,40 +117,49 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias size='command du -sh'
-alias count='wc -l'
-
-alias shutdown='quote && read && shutdown -h now'
-alias reboot='shutdown -r now'
-alias logout='gnome-session-quit'
-
-alias zedit="${EDITOR} ~/.zshrc"
-alias zinstall='zup && zplug install'
+alias zedit="e ~/.zshrc"
 alias zup='source ~/.zshrc'
-
-alias which-package='dpkg-query -S'
-
-# debian
-alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
 # grep
 alias grep="grep  --color=auto  --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
 # pipe to grep
-alias -g '@'='| command grep --color=auto'
+alias -g '@@'='| command grep --color=auto'
 alias dgrep='dpkg -l | command grep --color=auto'
 
 # add to clipboard
 alias clip='xclip -sel clip'
 
-if which hub &>/dev/null; then
-  alias git=hub
-fi
+# Direct alias some git commands.
+alias checkout='git checkout'
+alias commit='git commit'
+alias branch='git branch'
+alias split='git split'
+alias graph='git graph'
+alias bomb='git bomb'
+alias nuke='git nuke'
+alias reup='git reup'
+alias edit='git edit'
+alias fix='git fix'
+alias wip='git wip'
+alias stage-deletes='git stage-deletes'
+alias stage-all='git stage-all'
+alias publish='git publish'
 
-alias c='command'
+# Short git aliases.
+alias s ='git status'
+alias d ='git diff -M'
+alias g ='git grep'
+alias dm='git d master'
+alias du='git fetch && git d @{upstream}'
+alias br='git branch'
+alias re='git rebase'
+alias ri='git rebase -i'
+alias rim='git rebase -i master'
+alias pick='git cherry-pick'
+alias ch='git checkout'
+alias pub='git publish'
 
-# git mode
-alias g='git-mode-toggle'
-if [ -z $ZSHRC_FIRST_INCLUDE ]; then
-  export ZSHRC_FIRST_INCLUDE=true
-  git-mode-toggle
-fi
+# Direct alias some gh commands.
+alias clone='gh repo clone'
+alias fork='gh repo fork'
+alias pr='gh pr create'

@@ -5,5 +5,5 @@
     "CtrlLeft": "WordLeft",
     "CtrlRight": "WordRight",
     "ShiftCtrlLeft": "SelectWordLeft",
-    "ShiftCtrlRight": "SelectWordRight",
+    "ShiftCtrlRight": "SelectWordRight"
 }
