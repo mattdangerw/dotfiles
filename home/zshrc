@@ -153,6 +153,8 @@ alias wip='git wip'
 alias stage-deletes='git stage-deletes'
 alias stage-all='git stage-all'
 alias publish='git publish'
+alias help='git help'
+alias pull='git pull'
 
 # Short git aliases.
 alias s='git status'

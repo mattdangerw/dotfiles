@@ -115,7 +115,7 @@ fbranch() {
   is_in_git_repo || return
   setopt localoptions pipefail 2> /dev/null
   local branches branch
-  git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' |
+  git for-each-ref --sort=-committerdate --format='%(refname:short)' |
   fzf --bind='ctrl-b:abort' --ansi --no-sort --reverse \
     --preview 'echo {} | awk "{print $1}" | sed "s/.* //" | xargs git graph | head -c 2M' |
   awk '{print $1}' | sed "s/.* //"
