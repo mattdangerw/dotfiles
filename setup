@@ -25,14 +25,14 @@ if [ ! -e ~/checkout/dotfiles ]; then
 fi
 if [ ! -e ~/checkout/ohmyzsh ]; then
   git clone git@github.com:ohmyzsh/ohmyzsh.git ~/checkout/ohmyzsh
-  ln -sTf ~/checkout/oh-my-zsh ~/.oh-my-zsh
+  ln -sTf ~/checkout/ohmyzsh ~/.oh-my-zsh
 fi
 if [ ! -e ~/checkout/powerlevel10k ]; then
   git clone git@github.com:romkatv/powerlevel10k.git ~/checkout/powerlevel10k
   ln -sTf ~/checkout/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
-$SCRIPT_DIR/link
+~/checkout/dotfiles/link
 
 # gsettings
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then

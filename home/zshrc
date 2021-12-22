@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Libraries and configuration.
 # ==============================================================================
 
@@ -146,9 +153,9 @@ alias stage-all='git stage-all'
 alias publish='git publish'
 
 # Short git aliases.
-alias s ='git status'
-alias d ='git diff -M'
-alias g ='git grep'
+alias s='git status'
+alias d='git diff -M'
+alias g='git grep'
 alias dm='git d master'
 alias du='git fetch && git d @{upstream}'
 alias br='git branch'
@@ -163,3 +170,6 @@ alias pub='git publish'
 alias clone='gh repo clone'
 alias fork='gh repo fork'
 alias pr='gh pr create'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
