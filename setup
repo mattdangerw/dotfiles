@@ -1,21 +1,34 @@
 #!/bin/bash -ex
 # Simple setup script for debian systems.
 
-SCRIPT_DIR=$(dirname $(readlink -f $0))
-
 # apt install stuff
 sudo apt-get update
 sudo apt-get install -y zsh tmux vim git
 
 # brew install stuff
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install fzf gh micro diff-so-fancy cowsay tree xclip lolcat fortune
 
-# zsh
-if [ ! -e $HOME/.oh-my-zsh ]; then
-  git clone https://github.com/ohmyzsh/ohmyzsh.git ~/checkout/oh-my-zsh
-  git clone https://github.com/romkatv/powerlevel10k.git ~/checkout/powerlevel10k
+if [ ! -e ~/.ssh/id_ed25519 ]; then
+  ssh-keygen -t ed25519 -C "mattdangerw@gmail.com"
+  ssh-add ~/.ssh/id_ed25519
+  gh auth login
+  gh ssh-key add ~/.ssh/id_ed25519
+fi
+
+mkdir -p ~/checkout
+if [ ! -e ~/checkout/dotfiles ]; then
+  git clone git@github.com:mattdangerw/dotfiles.git ~/checkout/dotfiles
+fi
+if [ ! -e ~/checkout/ohmyzsh ]; then
+  git clone git@github.com:ohmyzsh/ohmyzsh.git ~/checkout/ohmyzsh
   ln -sTf ~/checkout/oh-my-zsh ~/.oh-my-zsh
+fi
+if [ ! -e ~/checkout/powerlevel10k ]; then
+  git clone git@github.com:romkatv/powerlevel10k.git ~/checkout/powerlevel10k
   ln -sTf ~/checkout/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
