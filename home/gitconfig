@@ -26,6 +26,7 @@
 	oneline = log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always
 	graph = log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always --graph
 	publish = push --set-upstream origin HEAD
+	reup = !git fetch --all && git reset --hard @{upstream}
 	bomb = clean -Xdf
 	nuke = clean -xdf
 	stage-deletes = !git rm $(git ls-files --deleted)
