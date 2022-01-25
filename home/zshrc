@@ -161,6 +161,9 @@ alias stage-all='git stage-all'
 alias publish='git publish'
 alias help='git help'
 alias pull='git pull'
+alias reset='git reset'
+alias show='git show'
+alias amend='git commit --amend'
 
 # Short git aliases.
 alias s='git status'
