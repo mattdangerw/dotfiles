@@ -104,6 +104,30 @@ fzf-history-widget() {
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
+# Search code
+# ==============================================================================
+
+fzf-symbol-search() {
+  local branch="$(interactive-symbol-search)"
+  local ret=$?
+  if [[ -n "$branch" ]]; then
+    if [[ -z "$LBUFFER" ]]; then
+      if [ $GIT_MODE ]; then
+        LBUFFER="checkout ${branch}"
+      else
+        LBUFFER="git checkout ${branch}"
+      fi
+    else
+      LBUFFER="${LBUFFER}${branch}"
+    fi
+  fi
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N   fzf-symbol-search
+bindkey '^S' fzf-symbol-search
+
 # Git magic
 # ==============================================================================
 
@@ -171,16 +195,3 @@ fzf-git-history() {
 }
 zle     -N   fzf-git-history
 bindkey '^H' fzf-git-history
-
-# fkill
-# ==============================================================================
-
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
