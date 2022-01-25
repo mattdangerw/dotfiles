@@ -6,29 +6,26 @@ SCRIPT_DIR=$(dirname $(readlink -f $0))
 DOTFILE_DIR=${SCRIPT_DIR}/home
 
 function backup_and_link() {
-    SOURCE=${DOTFILE_DIR}/${1}
-    DEST=${HOME}/.${1}
-    mkdir -p $(dirname $DEST)
+    SOURCE="${DOTFILE_DIR}/${1}"
+    DEST="${HOME}/.${1}"
+    mkdir -p $(dirname "${DEST}")
     # If its a symlink, just overwrite. Otherwise make a backup.
-    if [ -e $DEST -a ! -h $DEST ]; then
-        backup=${DEST}.old
-        if [ -e $backup ]; then
-            echo "$DEST and $backup exist, clean up your shit"
+    if [ -e "${DEST}" -a ! -h "${DEST}" ]; then
+        BACKUP=${DEST}.old
+        if [ -e "${BACKUP}" ]; then
+            echo ""${DEST}" and ${BACKUP} exist, clean up your shit"
             exit 1
         fi
-        echo "Moving existing $DEST to ${DEST}.old"
-        mv $DEST $backup
+        echo "Moving existing ${DEST} to ${DEST}.old"
+        mv "${DEST}" "${BACKUP}"
     fi
-    ln -sTf $SOURCE $DEST
+    ln -sTf "${SOURCE}" "${DEST}"
 }
 
-pushd $DOTFILE_DIR
-for file in $(find .  -maxdepth 1 -type f -printf '%P\n'); do
-    backup_and_link $file
+shopt -s globstar
+for file in home/**; do
+    if [ -d "${file}" ]; then
+        continue
+    fi
+    backup_and_link "${file}"
 done
-# List nested directories explicitly, cause we may want to choose how to link
-# them. i.e. link entire diretory or individual files
-backup_and_link local/share/fonts
-backup_and_link config/micro/bindings.json
-backup_and_link config/micro/settings.json
-popd
