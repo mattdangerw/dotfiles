@@ -3,7 +3,7 @@
 	email = mattdangerw@gmail.com
 [core]
 	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta --dark
 [color]
 	status = auto
 	commit = auto
@@ -42,7 +42,11 @@
 	oldHighlight = 9 bold
 	newNormal = green
 	newHighlight = 10 bold
+[delta]
+    navigate = true
 [interactive]
-	diffFilter = "diff-so-fancy --patch"
-[diff-so-fancy]
-	rulerWidth = 47
+    diffFilter = delta --color-only
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default

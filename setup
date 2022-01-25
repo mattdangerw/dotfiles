@@ -1,17 +1,18 @@
 #!/bin/bash -ex
 # Simple setup script for debian systems.
 
-# apt install stuff
+# apt install stuff really common stuff.
 sudo apt-get update
 sudo apt-get install -y zsh tmux vim git
 
-# brew install stuff
+# linux brew install stuff less common stuff.
 if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew install fzf gh micro diff-so-fancy cowsay tree xclip lolcat fortune
+brew install fzf gh micro cowsay tree xclip lolcat fortune bat delta
 
+# Setup github.
 if [ ! -e ~/.ssh/id_ed25519 ]; then
   ssh-keygen -t ed25519 -C "mattdangerw@gmail.com"
   ssh-add ~/.ssh/id_ed25519
@@ -19,6 +20,7 @@ if [ ! -e ~/.ssh/id_ed25519 ]; then
   gh ssh-key add ~/.ssh/id_ed25519
 fi
 
+# Directly clone dotfiles, ohmyzsh, and powerlevel10k.
 mkdir -p ~/checkout
 if [ ! -e ~/checkout/dotfiles ]; then
   git clone git@github.com:mattdangerw/dotfiles.git ~/checkout/dotfiles
@@ -32,15 +34,18 @@ if [ ! -e ~/checkout/powerlevel10k ]; then
   ln -sTf ~/checkout/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
+# Symlink dotfiles.
 ~/checkout/dotfiles/link
 
-# gsettings
+# Adjust gnome settings if we are on gnome.
 if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
   gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/checkout/dotfiles/background.jpg"
-  gsettings set org.gnome.desktop.screensaver picture-uri "file://${HOME}/checkout/dotfiles/background.jpg"
   gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi
+
+# Fix clock in dual boot
+timedatectl set-local-rtc 1 --adjust-system-clock
 
 sudo chsh -s $(which zsh) $USER
 zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and you should be all set.'"
