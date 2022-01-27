@@ -3,7 +3,7 @@
 # to this directory, so they can be easily version controlled.
 
 SCRIPT_DIR=$(dirname $(readlink -f $0))
-DOTFILE_DIR=${SCRIPT_DIR}/home
+DOTFILE_DIR="${SCRIPT_DIR}/home"
 
 function backup_and_link() {
     SOURCE="${DOTFILE_DIR}/${1}"
@@ -23,9 +23,11 @@ function backup_and_link() {
 }
 
 shopt -s globstar
-for file in home/**; do
+pushd "${DOTFILE_DIR}"
+for file in **; do
     if [ -d "${file}" ]; then
         continue
     fi
     backup_and_link "${file}"
 done
+popd

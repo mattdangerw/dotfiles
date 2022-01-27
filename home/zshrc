@@ -167,10 +167,10 @@ alias amend='git commit --amend'
 
 # Short git aliases.
 alias s='git status'
-alias d='git diff -M'
+alias d='git diff'
 alias g='git grep'
-alias dm='git d master'
-alias du='git fetch && git d @{upstream}'
+alias dm='git diff master'
+alias du='git fetch && git diff @{upstream}'
 alias br='git branch'
 alias re='git rebase'
 alias ri='git rebase -i'
