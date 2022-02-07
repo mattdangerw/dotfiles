@@ -37,8 +37,8 @@ if [ -f "$HOME/.secrets" ]; then
   . "$HOME/.secrets"
 fi
 
-if [[ ! "$PATH" == *$(dirname $PROFILE_SCRIPT_DIR)* ]]; then
-  export PATH="$PATH:$(dirname $PROFILE_SCRIPT_DIR)/scripts"
+if [[ ! "$PATH" == *checkout/dotfiles/scripts* ]]; then
+  export PATH="$PATH:$HOME/checkout/dotfiles/scripts"
 fi
 
 if [[ ! "$PATH" == *.local/bin* ]]; then
