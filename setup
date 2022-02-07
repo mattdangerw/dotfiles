@@ -11,7 +11,7 @@ if [ -e /etc/debian_version ]; then
 fi
 
 # Brew install most development tools.
-if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ] || [ -e /opt/homebrew/bin/brew ]; then
+if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ] && [ ! -e /opt/homebrew/bin/brew ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
@@ -20,7 +20,7 @@ fi
 if [ -e /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-brew install fzf gh micro cowsay tree xclip lolcat fortune bat delta tmux vim git
+brew install fzf gh micro cowsay tree xclip lolcat fortune bat git-delta tmux vim git
 
 # Setup github.
 if [ ! -e ~/.ssh/id_ed25519 ]; then
