@@ -21,7 +21,7 @@ setopt hist_ignore_all_dups
 # Setup path properly over ssh
 source ~/.profile
 
-for file in $(dirname $(readlink -f ~/.zshrc))/../zsh/*.zsh; do
+for file in ~/checkout/dotfiles/zsh/*.zsh; do
   source $file
 done
 
