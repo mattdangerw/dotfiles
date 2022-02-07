@@ -22,8 +22,8 @@ function backup_and_link() {
     ln -sTf "${SOURCE}" "${DEST}"
 }
 
-shopt -s globstar
 pushd "${DOTFILE_DIR}"
+shopt -s globstar
 for file in **; do
     if [ -d "${file}" ]; then
         continue

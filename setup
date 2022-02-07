@@ -1,16 +1,24 @@
 #!/bin/bash -ex
-# Simple setup script for debian systems.
 
-# apt install stuff really common stuff.
-sudo apt-get update
-sudo apt-get install -y zsh tmux vim git
+# Simple setup script for macos and debian linux.
+# One liner for a new system:
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mattdangerw/dotfiles/HEAD/setup)"
 
-# linux brew install stuff less common stuff.
-if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Make sure we have zsh installed on debian systems (default on mac).
+if [ -e /etc/debian_version ]; then
+  sudo apt-get update
+  sudo apt-get install -y zsh
 fi
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-brew install fzf gh micro cowsay tree xclip lolcat fortune bat delta
+
+# Brew install most development tools.
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+if [ -e /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+brew install fzf gh micro cowsay tree xclip lolcat fortune bat delta tmux vim git
 
 # Setup github.
 if [ ! -e ~/.ssh/id_ed25519 ]; then
@@ -44,8 +52,8 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi
 
-# Fix clock in dual boot
-timedatectl set-local-rtc 1 --adjust-system-clock
+# Fix clock in dual boot, we won't do this by default for now.
+# timedatectl set-local-rtc 1 --adjust-system-clock
 
 sudo chsh -s $(which zsh) $USER
 zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and you should be all set.'"
