@@ -72,6 +72,17 @@ function chpwd() {
   ls
 }
 
+# create with tf setup
+function conda-create-tf() {
+  conda create --name "${1}" python=3.9 -y
+  conda activate "${1}"
+  conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+  mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  pip install --upgrade pip
+}
+
 # Aliases.
 # ==============================================================================
 
@@ -183,3 +194,19 @@ alias pub='git publish'
 alias clone='gh repo clone'
 alias fork='gh repo fork'
 alias pr='gh pr create'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/matt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/matt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/matt/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/matt/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
