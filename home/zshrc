@@ -166,6 +166,7 @@ alias show='git show'
 alias rebase='git rebase'
 alias amend='git commit --amend'
 alias stash='git stash'
+alias fetch='git fetch --all'
 
 # Short git aliases.
 alias s='git status'
