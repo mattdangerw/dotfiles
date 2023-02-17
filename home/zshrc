@@ -77,21 +77,17 @@ function conda-create-tf() {
   conda create --name "${1}" python=3.9 -y
   conda activate "${1}"
 
-  # Recommended steps for tensorflow install.
-  conda install -y -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
-  mkdir -p $CONDA_PREFIX/etc/conda/activate.d
-  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-
-  # Extra crap for jit_compile=True.
-  # The extra cuda is needed just ptxas, as recommended by jax install guide.
-  # The symlinked libdevice and XLA_FLAGS is from following error messages.
-  conda install -y cuda-nvcc=11.4 -c nvidia
-  echo 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice
-  ln -s $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/libdevice.10.bc
+  conda install -y -c conda-forge cudatoolkit-dev=11.2 cudnn=8.1.0
+  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
+  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  echo 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
   pip install --upgrade pip
-  conda deactivate
+}
+
+function git-replace() {
+  git grep -l "${1}" | xargs sed -i "" -e "s/${1}/${2}/g"
 }
 
 # Aliases.
@@ -197,6 +193,7 @@ alias dm='git diff master'
 alias du='git fetch && git diff @{upstream}'
 alias ri='git rebase -i'
 alias rim='git rebase -i master'
+alias re='git rebase'
 alias pick='git cherry-pick'
 alias ch='git checkout'
 alias pub='git publish'
