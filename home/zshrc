@@ -36,7 +36,7 @@ done
 
 function say() {
   if which cowsay >/dev/null && which lolcat >/dev/null; then
-    cowfile=`ls /usr/share/cowsay/cows | sort -R | tail -1`
+    cowfile=$(cowsay -l | tail +2 | tr ' ' '\n' | sort -R | tail -1)
     cowsay -f $cowfile "$@" | lolcat
   else
     echo $@
@@ -88,6 +88,12 @@ function conda-create-tf() {
 
 function git-replace() {
   git grep -l "${1}" | xargs sed -i "" -e "s/${1}/${2}/g"
+}
+
+function clone-fork() {
+  gh repo clone "$1"
+  cd "$(basename $1)"
+  gh repo fork --remote
 }
 
 # Aliases.
@@ -206,14 +212,14 @@ alias pr='gh pr create'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/matt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$(~/miniconda3/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/matt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/matt/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "~/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "~/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/matt/miniconda3/bin:$PATH"
+        export PATH="~/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
