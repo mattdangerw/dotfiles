@@ -54,6 +54,10 @@ if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi
 
+# Install conda.
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+
 # Fix clock in dual boot, we won't do this by default for now.
 # timedatectl set-local-rtc 1 --adjust-system-clock
 
