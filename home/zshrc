@@ -76,14 +76,17 @@ function chpwd() {
 function conda-create-tf() {
   conda create --name "${1}" python=3.9 -y
   conda activate "${1}"
-
-  conda install -y -c conda-forge cudatoolkit-dev=11.2 cudnn=8.1.0
-  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
-  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  echo 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-
   pip install --upgrade pip
+
+  conda install -y -c conda-forge cudatoolkit=11.8.0
+  pip install --upgrade nvidia-cuda-nvcc-cu11==11.8.89 nvidia-cudnn-cu11==8.6.0.163
+
+  CUDA_NVCC_PATH=$(dirname $(python -c "import nvidia.cuda_nvcc;print(nvidia.cuda_nvcc.__file__)"))
+  CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
+  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
+  echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  echo "export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_NVCC_PATH/" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 }
 
 function git-replace() {
