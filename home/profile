@@ -54,9 +54,9 @@ if [[ ! "$PATH" == *.fzf/bin* ]]; then
 fi
 
 # Include brew.
-if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
+if [[ -e /home/linuxbrew/.linuxbrew/bin/brew && ! "$PATH" == *linuxbrew* ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-if [ -e /opt/homebrew/bin/brew ]; then
+if [[ -e /opt/homebrew/bin/brew && ! "$PATH" == *homebrew* ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi

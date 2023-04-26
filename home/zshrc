@@ -77,13 +77,17 @@ function conda-create-tf() {
   conda create --name "${1}" python=3.9 -y
   conda activate "${1}"
 
-  conda install -y -c conda-forge cudatoolkit-dev=11.2 cudnn=8.1.0
-  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
-  echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  echo 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  conda install -y -c conda-forge cudatoolkit=11.8.0
+  conda install -y -c nvidia cuda-nvcc=11.3.58
+  pip install --upgrade pip nvidia-cudnn-cu11==8.6.0.163
 
-  pip install --upgrade pip
+  CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
+  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
+  mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice/
+  cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
+  echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  echo "export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 }
 
 function git-replace() {
@@ -210,7 +214,15 @@ alias clone='gh repo clone'
 alias fork='gh repo fork'
 alias pr='gh pr create'
 
-# Conda init
-__conda_setup="$(~/miniconda3/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
-eval "$__conda_setup"
-unset __conda_setup
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$("${HOME}/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "${HOME}/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "${HOME}/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="${HOME}/miniconda3/bin:$PATH"
+    fi
+fi
