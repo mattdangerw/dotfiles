@@ -1,7 +1,6 @@
 #!/bin/bash -ex
 
-# Simple setup script for macos and debian linux.
-# One liner for a new system:
+# Simple setup script for macos and debian linux. One liner for a new system:
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mattdangerw/dotfiles/HEAD/setup)"
 
 # Make sure we have zsh installed on debian systems (default on mac).
@@ -48,18 +47,22 @@ fi
 ~/checkout/dotfiles/link
 
 # Adjust gnome settings if we are on gnome.
-if [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
+if [[ $XDG_CURRENT_DESKTOP =~ "GNOME" ]]; then
   gsettings set org.gnome.desktop.background picture-uri "file://${HOME}/checkout/dotfiles/background.jpg"
   gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
   gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi
 
-# Install conda.
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
-
 # Fix clock in dual boot, we won't do this by default for now.
 # timedatectl set-local-rtc 1 --adjust-system-clock
 
-sudo chsh -s $(which zsh) $USER
-zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and you should be all set.'"
+# Install conda.
+if [ ! -e ~/miniconda3 ]; then
+  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  bash Miniconda3-latest-Linux-x86_64.sh
+fi
+
+if [[ ! "$SHELL" =~ "zsh" ]]; then
+  sudo chsh -s $(which zsh) $USER
+  zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and you should be all set.'"
+fi

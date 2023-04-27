@@ -226,3 +226,4 @@ else
         export PATH="${HOME}/miniconda3/bin:$PATH"
     fi
 fi
+# <<< conda initialize <<<
