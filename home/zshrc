@@ -194,6 +194,7 @@ alias show='git show'
 alias rebase='git rebase'
 alias amend='git commit --amend'
 alias stash='git stash'
+alias cherry-pick='git cherry-pick'
 alias fetch='git fetch --all'
 
 # Short git aliases.
