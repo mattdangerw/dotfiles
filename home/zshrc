@@ -31,75 +31,6 @@ done
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Functions.
-# ==============================================================================
-
-function say() {
-  if which cowsay >/dev/null && which lolcat >/dev/null; then
-    cowfile=$(cowsay -l | tail +2 | tr ' ' '\n' | sort -R | tail -1)
-    cowsay -f $cowfile "$@" | lolcat
-  else
-    echo $@
-  fi
-}
-
-function calc() {
-  python -c "print $@"
-}
-
-function deb-extract() {
-  mkdir -p $2
-  dpkg-deb -x $1 $2
-  dpkg-deb --control $1 $2/DEBIAN
-}
-
-function deb-rebuild() {
-  dpkg -b $1 $2
-}
-
-function mkc() {
-  mkdir -p "$1" && cd "$1" || return 1
-}
-
-function _mkc() {
-  #compdef mkc
-  _files -W "$1" -/
-}
-
-# ls after every cd
-function chpwd() {
-  emulate -LR zsh
-  ls
-}
-
-# create with tf setup
-function conda-create-tf() {
-  conda create --name "${1}" python=3.9 -y
-  conda activate "${1}"
-
-  conda install -y -c conda-forge cudatoolkit=11.8.0
-  conda install -y -c nvidia cuda-nvcc=11.3.58
-  pip install --upgrade pip nvidia-cudnn-cu11==8.6.0.163
-
-  CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
-  mkdir -p $CONDA_PREFIX/etc/conda/activate.d/
-  mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice/
-  cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
-  echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  echo "export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/" >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-  source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-}
-
-function git-replace() {
-  git grep -l "${1}" | xargs sed -i "" -e "s/${1}/${2}/g"
-}
-
-function clone-fork() {
-  gh repo clone "$1"
-  cd "$(basename $1)"
-  gh repo fork --remote
-}
-
 # Aliases.
 # ==============================================================================
 
@@ -228,3 +159,118 @@ else
     fi
 fi
 # <<< conda initialize <<<
+
+# Functions.
+# ==============================================================================
+
+function say() {
+  if which cowsay >/dev/null && which lolcat >/dev/null; then
+    cowfile=$(cowsay -l | tail +2 | tr ' ' '\n' | sort -R | tail -1)
+    cowsay -f $cowfile "$@" | lolcat
+  else
+    echo $@
+  fi
+}
+
+function calc() {
+  python -c "print $@"
+}
+
+function deb-extract() {
+  mkdir -p $2
+  dpkg-deb -x $1 $2
+  dpkg-deb --control $1 $2/DEBIAN
+}
+
+function deb-rebuild() {
+  dpkg -b $1 $2
+}
+
+function mkc() {
+  mkdir -p "$1" && cd "$1" || return 1
+}
+
+function _mkc() {
+  #compdef mkc
+  _files -W "$1" -/
+}
+
+# ls after every cd
+function chpwd() {
+  emulate -LR zsh
+  ls
+}
+
+# Keras conda
+function conda-create-keras-nlp() {
+  pushd ~/checkout/keras-nlp/
+  conda env remove -n keras-nlp-cpu || true
+  conda create --name keras-nlp-cpu python=3.10 -y
+  conda activate keras-nlp-cpu
+  pip install -r requirements.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-nlp-torch || true
+  conda create --name keras-nlp-torch python=3.10 -y
+  conda activate keras-nlp-torch
+  pip install -r requirements-torch-cuda.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-nlp-jax || true
+  conda create --name keras-nlp-jax python=3.10 -y
+  conda activate keras-nlp-jax
+  pip install -r requirements-jax-cuda.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-nlp-tensorflow || true
+  conda create --name keras-nlp-tensorflow python=3.10 -y
+  conda activate keras-nlp-tensorflow
+  pip install -r requirements-tensorflow-cuda.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-nlp-legacy || true
+  conda create --name keras-nlp-legacy python=3.10 -y
+  conda activate keras-nlp-legacy
+  pip install -r requirements-common.txt
+  pip install tensorflow-text==2.14 tensorflow==2.14 keras-core
+  python pip_build.py --install
+  popd
+}
+
+function conda-create-keras() {
+  pushd ~/checkout/keras/
+  conda env remove -n keras-cpu || true
+  conda create --name keras-cpu python=3.10 -y
+  conda activate keras-cpu
+  pip install -r requirements.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-torch || true
+  conda create --name keras-torch python=3.10 -y
+  conda activate keras-torch
+  pip install -r requirements-torch-cuda.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-jax || true
+  conda create --name keras-jax python=3.10 -y
+  conda activate keras-jax
+  pip install -r requirements-jax-cuda.txt
+  python pip_build.py --install
+
+  conda env remove -n keras-tensorflow || true
+  conda create --name keras-tensorflow python=3.10 -y
+  conda activate keras-tensorflow
+  pip install -r requirements-tensorflow-cuda.txt
+  python pip_build.py --install
+  popd
+}
+
+function git-replace() {
+  git grep -l "${1}" | xargs sed -i "" -e "s/${1}/${2}/g"
+}
+
+function clone-fork() {
+  gh repo clone "$1"
+  cd "$(basename $1)"
+  gh repo fork --remote
+}
