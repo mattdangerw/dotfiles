@@ -141,7 +141,7 @@ fbranch() {
   local branches branch
   git for-each-ref --sort=-committerdate --format='%(refname:short)' |
   fzf --bind='ctrl-b:abort' --ansi --no-sort --reverse \
-    --preview 'echo {} | awk "{print $1}" | sed "s/.* //" | xargs git graph | head -c 2M' |
+    --preview "echo {} | awk '{print \$1}' | sed 's/.* //' | xargs git graph | head -c 2M" |
   awk '{print $1}' | sed "s/.* //"
 }
 
@@ -170,8 +170,8 @@ fhash() {
   is_in_git_repo || return
   git log --date=format:'%m/%d/%Y' --format='%C(blue)%cd %C(auto)%h%d %s %C(242)%ae' --color=always $1 |
   fzf --bind='ctrl-h:abort' --ansi --height 100% --no-sort --reverse --preview-window=wrap \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -c 2M | delta --dark' |
-  command grep -o "[a-f0-9]\{7,\}"
+    --preview "echo {} | awk '{print \$2}' | xargs git show --color=always | head -c 2M | delta --dark" |
+  awk '{print $2}'
 }
 alias flog='fhash'
 
