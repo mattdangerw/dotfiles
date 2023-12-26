@@ -62,6 +62,36 @@ if [ ! -e ~/miniconda3 ]; then
   bash Miniconda3-latest-Linux-x86_64.sh
 fi
 
+# Setup Keras repos.
+if [ ! -e ~/checkout/keras ]; then
+  gh repo clone keras-team/keras ~/checkout/keras
+  pushd ~/checkout/keras
+  gh repo fork --remote
+  gh repo set-default keras-team/keras
+  popd
+fi
+if [ ! -e ~/checkout/keras-nlp ]; then
+  gh repo clone keras-team/keras-nlp ~/checkout/keras-nlp
+  pushd ~/checkout/keras-nlp
+  gh repo fork --remote
+  gh repo set-default keras-team/keras-nlp
+  popd
+fi
+if [ ! -e ~/checkout/keras-cv ]; then
+  gh repo clone keras-team/keras-cv ~/checkout/keras-cv
+  pushd ~/checkout/keras-cv
+  gh repo fork --remote
+  gh repo set-default keras-team/keras-cv
+  popd
+fi
+if [ ! -e ~/checkout/keras-io ]; then
+  gh repo clone keras-team/keras-io ~/checkout/keras-io
+  pushd ~/checkout/keras-io
+  gh repo fork --remote
+  gh repo set-default keras-team/keras-io
+  popd
+fi
+
 if [[ ! "$SHELL" =~ "zsh" ]]; then
   sudo chsh -s $(which zsh) $USER
   zsh -c "source $HOME/.zshrc && say 'DONE! Reboot and you should be all set.'"
