@@ -112,11 +112,7 @@ fzf-symbol-search() {
   local ret=$?
   if [[ -n "$branch" ]]; then
     if [[ -z "$LBUFFER" ]]; then
-      if [ $GIT_MODE ]; then
-        LBUFFER="checkout ${branch}"
-      else
-        LBUFFER="git checkout ${branch}"
-      fi
+      LBUFFER="git checkout ${branch}"
     else
       LBUFFER="${LBUFFER}${branch}"
     fi
@@ -150,11 +146,7 @@ fzf-git-branch() {
   local ret=$?
   if [[ -n "$branch" ]]; then
     if [[ -z "$LBUFFER" ]]; then
-      if [ $GIT_MODE ]; then
-        LBUFFER="checkout ${branch}"
-      else
-        LBUFFER="git checkout ${branch}"
-      fi
+      LBUFFER="git checkout ${branch}"
     else
       LBUFFER="${LBUFFER}${branch}"
     fi
@@ -180,11 +172,7 @@ fzf-git-history() {
   local ret=$?
   if [[ -n "$hash" ]]; then
     if [[ -z "$LBUFFER" ]]; then
-      if [ $GIT_MODE ]; then
-        LBUFFER="show ${hash}"
-      else
-        LBUFFER="git show ${hash}"
-      fi
+      LBUFFER="git show ${hash}"
     else
       LBUFFER="${LBUFFER}${hash}"
     fi
@@ -195,3 +183,26 @@ fzf-git-history() {
 }
 zle     -N   fzf-git-history
 bindkey '^H' fzf-git-history
+
+condaenvs() {
+  conda env list | tail -n +3 |
+  fzf --bind='ctrl-b:abort' --ansi --no-sort --reverse |
+  awk '{print $1}' | sed "s/.* //"
+}
+
+fzf-conda-envs() {
+  local branch="$(condaenvs)"
+  local ret=$?
+  if [[ -n "$branch" ]]; then
+    if [[ -z "$LBUFFER" ]]; then
+      LBUFFER="conda activate ${branch}"
+    else
+      LBUFFER="${LBUFFER}${branch}"
+    fi
+  fi
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N   fzf-conda-envs
+bindkey '^E' fzf-conda-envs
